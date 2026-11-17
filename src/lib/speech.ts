@@ -33,3 +33,12 @@ export function stopSpeaking(): void {
   if (!ttsSupported()) return;
   window.speechSynthesis.cancel();
 }
+
+/**
+ * True while an utterance is being spoken. In the APK the native TTS
+ * bridge maintains this flag (set on speak, cleared when the utterance
+ * finishes or errors); in a browser it is the native property.
+ */
+export function speaking(): boolean {
+  return ttsSupported() && window.speechSynthesis.speaking;
+}

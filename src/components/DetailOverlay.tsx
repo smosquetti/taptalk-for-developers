@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { WordCard } from "@/lib/vocabulary";
-import { speak } from "@/lib/speech";
+import { speak, speaking } from "@/lib/speech";
 
 type Props = {
   card: WordCard;
@@ -22,16 +22,47 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const [lastPlayed, setLastPlayed] = useState<"word" | "example" | null>(null);
+  // Which button started the current utterance, if any. Kept in a ref so
+  // the polling interval always reads the latest value.
+  const activeKindRef = useRef<"word" | "example" | null>(null);
+  const [speakingKind, setSpeakingKind] = useState<"word" | "example" | null>(null);
+
+  // Tapping a card speaks the German word before this modal mounts, so if
+  // TTS is already mid-utterance when we open, highlight the Word button.
+  useEffect(() => {
+    if (speaking()) {
+      activeKindRef.current = "word";
+      setSpeakingKind("word");
+    }
+  }, []);
+
+  // The native TTS bridge clears `speechSynthesis.speaking` when an
+  // utterance finishes, so poll that flag: the button that started the
+  // sound is highlighted while it plays, and the highlight is cleared
+  // when the TTS is done.
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (speaking()) {
+        if (!activeKindRef.current) activeKindRef.current = "word";
+        const kind = activeKindRef.current;
+        setSpeakingKind((prev) => (prev === kind ? prev : kind));
+      } else {
+        setSpeakingKind(null);
+      }
+    }, 150);
+    return () => clearInterval(id);
+  }, []);
 
   const play = (kind: "word" | "example") => {
-    setLastPlayed(kind);
-    if (soundOn) speak(kind === "word" ? card.german : card.exampleDe);
+    if (!soundOn) return;
+    activeKindRef.current = kind;
+    setSpeakingKind(kind);
+    speak(kind === "word" ? card.german : card.exampleDe);
   };
 
   const playButtonClass = (kind: "word" | "example") =>
     `flex items-center justify-center gap-2 rounded-lg border px-4 py-3 text-sm font-semibold transition active:scale-[0.98] ${
-      lastPlayed === kind
+      speakingKind === kind
         ? "border-neon/80 bg-surface text-neon shadow-[0_0_14px_rgba(34,211,238,0.25)]"
         : "border-edge bg-surface text-ice hover:border-neon/60"
     }`;
@@ -97,7 +128,7 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
             <button
               type="button"
               onClick={() => play("word")}
-              aria-pressed={lastPlayed === "word"}
+              aria-pressed={speakingKind === "word"}
               className={playButtonClass("word")}
             >
               <span aria-hidden>🔊</span> Word
@@ -105,7 +136,7 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
             <button
               type="button"
               onClick={() => play("example")}
-              aria-pressed={lastPlayed === "example"}
+              aria-pressed={speakingKind === "example"}
               className={playButtonClass("example")}
             >
               <span aria-hidden>🔊</span> Example
