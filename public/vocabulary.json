@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "hardware-01",
+    "category": "hardware",
+    "german": "der Computer",
+    "english": "computer",
+    "exampleDe": "Mein neuer Computer ist extrem schnell.",
+    "exampleEn": "My new computer is extremely fast."
+  },
+  {
+    "id": "hardware-02",
+    "category": "hardware",
+    "german": "der Laptop",
+    "english": "laptop",
+    "exampleDe": "Ich nehme meinen Laptop mit ins Büro.",
+    "exampleEn": "I am taking my laptop to the office."
+  },
+  {
+    "id": "hardware-03",
+    "category": "hardware",
+    "german": "der Bildschirm",
+    "english": "monitor",
+    "exampleDe": "Ich arbeite lieber mit zwei Bildschirmen.",
+    "exampleEn": "I prefer working with two monitors."
+  },
+  {
+    "id": "hardware-04",
+    "category": "hardware",
+    "german": "die Tastatur",
+    "english": "keyboard",
+    "exampleDe": "Diese mechanische Tastatur ist ideal zum Programmieren.",
+    "exampleEn": "This mechanical keyboard is ideal for programming."
+  },
+  {
+    "id": "hardware-05",
+    "category": "hardware",
+    "german": "die Maus",
+    "english": "mouse",
+    "exampleDe": "Die kabellose Maus braucht neue Batterien.",
+    "exampleEn": "The wireless mouse needs new batteries."
+  },
+  {
+    "id": "hardware-06",
+    "category": "hardware",
+    "german": "die Festplatte",
+    "english": "hard drive",
+    "exampleDe": "Auf der Festplatte ist nicht mehr genug Speicherplatz.",
+    "exampleEn": "There isn't enough storage space left on the hard drive."
+  },
+  {
+    "id": "hardware-07",
+    "category": "hardware",
+    "german": "der Arbeitsspeicher",
+    "english": "RAM",
+    "exampleDe": "Für virtuelle Maschinen braucht man viel Arbeitsspeicher.",
+    "exampleEn": "You need a lot of RAM for virtual machines."
+  },
+  {
+    "id": "hardware-08",
+    "category": "hardware",
+    "german": "der Prozessor",
+    "english": "processor",
+    "exampleDe": "Ein moderner Prozessor beschleunigt das Kompilieren erheblich.",
+    "exampleEn": "A modern processor speeds up compiling significantly."
+  },
+  {
+    "id": "hardware-09",
+    "category": "hardware",
+    "german": "das Motherboard",
+    "english": "motherboard",
+    "exampleDe": "Alle Komponenten sind mit dem Motherboard verbunden.",
+    "exampleEn": "All components are connected to the motherboard."
+  },
+  {
+    "id": "hardware-10",
+    "category": "hardware",
+    "german": "das Netzteil",
+    "english": "power supply",
+    "exampleDe": "Das Netzteil des Servers muss ausgetauscht werden.",
+    "exampleEn": "The server's power supply unit needs to be replaced."
+  },
+  {
+    "id": "hardware-11",
+    "category": "hardware",
+    "german": "der Server",
+    "english": "server",
+    "exampleDe": "Der Server ist im Moment leider nicht erreichbar.",
+    "exampleEn": "The server is unfortunately unreachable at the moment."
+  },
+  {
+    "id": "hardware-12",
+    "category": "hardware",
+    "german": "das Netzwerk",
+    "english": "network",
+    "exampleDe": "Wir haben ein Problem mit dem lokalen Netzwerk.",
+    "exampleEn": "We have a problem with the local network."
+  },
+  {
+    "id": "hardware-13",
+    "category": "hardware",
+    "german": "der Router",
+    "english": "router",
+    "exampleDe": "Bitte starte den Router einmal neu.",
+    "exampleEn": "Please restart the router once."
+  },
+  {
+    "id": "hardware-14",
+    "category": "hardware",
+    "german": "die Datei",
+    "english": "file",
+    "exampleDe": "Kannst du mir die Datei per E-Mail schicken?",
+    "exampleEn": "Can you send me the file via email?"
+  },
+  {
+    "id": "hardware-15",
+    "category": "hardware",
+    "german": "der Ordner",
+    "english": "folder",
+    "exampleDe": "Alle Bilder liegen in diesem Ordner.",
+    "exampleEn": "All pictures are located in this folder."
+  },
+  {
+    "id": "hardware-16",
+    "category": "hardware",
+    "german": "das Betriebssystem",
+    "english": "operating system",
+    "exampleDe": "Welches Betriebssystem nutzt du auf deinem Arbeitsrechner?",
+    "exampleEn": "Which operating system do you use on your work machine?"
+  },
+  {
+    "id": "hardware-17",
+    "category": "hardware",
+    "german": "der Treiber",
+    "english": "driver",
+    "exampleDe": "Ich muss den Treiber für die Grafikkarte aktualisieren.",
+    "exampleEn": "I need to update the driver for the graphics card."
+  },
+  {
+    "id": "hardware-18",
+    "category": "hardware",
+    "german": "die Schnittstelle",
+    "english": "API / interface",
+    "exampleDe": "Wir nutzen eine REST-Schnittstelle für den Datenaustausch.",
+    "exampleEn": "We use a REST API for data exchange."
+  },
+  {
+    "id": "hardware-19",
+    "category": "hardware",
+    "german": "die Cloud",
+    "english": "cloud",
+    "exampleDe": "Unsere gesamte Infrastruktur läuft in der Cloud.",
+    "exampleEn": "Our entire infrastructure runs in the cloud."
+  },
+  {
+    "id": "hardware-20",
+    "category": "hardware",
+    "german": "die Sicherung",
+    "english": "backup",
+    "exampleDe": "Vergiss nicht, regelmäßig eine Sicherung der Daten zu machen.",
+    "exampleEn": "Don't forget to make a backup of the data regularly."
+  },
+  {
+    "id": "fundamentals-21",
+    "category": "fundamentals",
+    "german": "die Variable",
+    "english": "variable",
+    "exampleDe": "Deklariere zuerst eine neue Variable für den Benutzernamen.",
+    "exampleEn": "First, declare a new variable for the username."
+  },
+  {
+    "id": "fundamentals-22",
+    "category": "fundamentals",
+    "german": "die Konstante",
+    "english": "constant",
+    "exampleDe": "Der Wert einer Konstante kann nicht geändert werden.",
+    "exampleEn": "The value of a constant cannot be changed."
+  },
+  {
+    "id": "fundamentals-23",
+    "category": "fundamentals",
+    "german": "der Datentyp",
+    "english": "data type",
+    "exampleDe": "JavaScript ist eine Sprache mit dynamischem Datentyp.",
+    "exampleEn": "JavaScript is a dynamically typed language."
+  },
+  {
+    "id": "fundamentals-24",
+    "category": "fundamentals",
+    "german": "die Ganzzahl",
+    "english": "integer",
+    "exampleDe": "Das Alter wird als Ganzzahl gespeichert.",
+    "exampleEn": "The age is stored as an integer."
+  },
+  {
+    "id": "fundamentals-25",
+    "category": "fundamentals",
+    "german": "die Gleitkommazahl",
+    "english": "floating-point number",
+    "exampleDe": "Für genaue Preise verwenden wir eine Gleitkommazahl.",
+    "exampleEn": "For exact prices, we use a floating-point number."
+  },
+  {
+    "id": "fundamentals-26",
+    "category": "fundamentals",
+    "german": "die Zeichenkette",
+    "english": "string",
+    "exampleDe": "Diese Funktion wandelt eine Zahl in eine Zeichenkette um.",
+    "exampleEn": "This function converts a number into a string."
+  },
+  {
+    "id": "fundamentals-27",
+    "category": "fundamentals",
+    "german": "der boolesche Wert",
+    "english": "boolean value",
+    "exampleDe": "Die Prüfung gibt einen booleschen Wert zurück.",
+    "exampleEn": "The check returns a boolean value."
+  },
+  {
+    "id": "fundamentals-28",
+    "category": "fundamentals",
+    "german": "das Array",
+    "english": "array",
+    "exampleDe": "Die Elemente im Array sind nach Größe sortiert.",
+    "exampleEn": "The elements in the array are sorted by size."
+  },
+  {
+    "id": "fundamentals-29",
+    "category": "fundamentals",
+    "german": "die Liste",
+    "english": "list",
+    "exampleDe": "Wir fügen den neuen Eintrag am Ende der Liste hinzu.",
+    "exampleEn": "We add the new entry to the end of the list."
+  },
+  {
+    "id": "fundamentals-30",
+    "category": "fundamentals",
+    "german": "die verknüpfte Liste",
+    "english": "linked list",
+    "exampleDe": "Jedes Element einer verknüpften Liste kennt seinen Nachfolger.",
+    "exampleEn": "Each element of a linked list knows its successor."
+  },
+  {
+    "id": "fundamentals-31",
+    "category": "fundamentals",
+    "german": "der Stapel",
+    "english": "stack",
+    "exampleDe": "Funktionsaufrufe werden auf dem Stapel verwaltet.",
+    "exampleEn": "Function calls are managed on the stack."
+  },
+  {
+    "id": "fundamentals-32",
+    "category": "fundamentals",
+    "german": "die Warteschlange",
+    "english": "queue",
+    "exampleDe": "Die Anfragen werden in einer Warteschlange verarbeitet.",
+    "exampleEn": "The requests are processed in a queue."
+  },
+  {
+    "id": "fundamentals-33",
+    "category": "fundamentals",
+    "german": "der Zeiger",
+    "english": "pointer",
+    "exampleDe": "In C++ verweist ein Zeiger direkt auf eine Speicheradresse.",
+    "exampleEn": "In C++, a pointer refers directly to a memory address."
+  },
+  {
+    "id": "fundamentals-34",
+    "category": "fundamentals",
+    "german": "der Wert",
+    "english": "value",
+    "exampleDe": "Welchen Wert hat das Ergebnis nach der Berechnung?",
+    "exampleEn": "What value does the result have after the calculation?"
+  },
+  {
+    "id": "fundamentals-35",
+    "category": "fundamentals",
+    "german": "der Rückgabewert",
+    "english": "return value",
+    "exampleDe": "Wir müssen den Rückgabewert der Funktion noch überprüfen.",
+    "exampleEn": "We still need to check the return value of the function."
+  },
+  {
+    "id": "control-flow-36",
+    "category": "control-flow",
+    "german": "die Funktion",
+    "english": "function",
+    "exampleDe": "Diese Funktion berechnet die Mehrwertsteuer.",
+    "exampleEn": "This function calculates the value-added tax."
+  },
+  {
+    "id": "control-flow-37",
+    "category": "control-flow",
+    "german": "die Methode",
+    "english": "method",
+    "exampleDe": "Rufe die Methode direkt auf dem Objekt auf.",
+    "exampleEn": "Call the method directly on the object."
+  },
+  {
+    "id": "control-flow-38",
+    "category": "control-flow",
+    "german": "die Schleife",
+    "english": "loop",
+    "exampleDe": "Eine Endlos-Schleife kann das Programm zum Absturz bringen.",
+    "exampleEn": "An infinite loop can crash the program."
+  },
+  {
+    "id": "control-flow-39",
+    "category": "control-flow",
+    "german": "die Bedingung",
+    "english": "condition",
+    "exampleDe": "Der Code wird nur ausgeführt, wenn die Bedingung wahr ist.",
+    "exampleEn": "The code is only executed if the condition is true."
+  },
+  {
+    "id": "control-flow-40",
+    "category": "control-flow",
+    "german": "die Verzweigung",
+    "english": "branch",
+    "exampleDe": "Mit einer if-else-Verzweigung steuern wir den Programmablauf.",
+    "exampleEn": "With an if-else branch, we control the program flow."
+  },
+  {
+    "id": "control-flow-41",
+    "category": "control-flow",
+    "german": "aufrufen",
+    "english": "to call",
+    "exampleDe": "Du musst die Funktion mit zwei Parametern aufrufen.",
+    "exampleEn": "You have to call the function with two parameters."
+  },
+  {
+    "id": "control-flow-42",
+    "category": "control-flow",
+    "german": "übergeben",
+    "english": "to pass",
+    "exampleDe": "Wir übergeben die Benutzer-ID an das Backend.",
+    "exampleEn": "We pass the user ID to the backend."
+  },
+  {
+    "id": "control-flow-43",
+    "category": "control-flow",
+    "german": "zurückgeben",
+    "english": "to return",
+    "exampleDe": "Die Suche sollte eine Liste von Treffern zurückgeben.",
+    "exampleEn": "The search should return a list of matches."
+  },
+  {
+    "id": "control-flow-44",
+    "category": "control-flow",
+    "german": "die Ausnahme",
+    "english": "exception",
+    "exampleDe": "Wenn die Datei fehlt, wird eine Ausnahme ausgelöst.",
+    "exampleEn": "If the file is missing, an exception is thrown."
+  },
+  {
+    "id": "control-flow-45",
+    "category": "control-flow",
+    "german": "die Fehlerbehandlung",
+    "english": "error handling",
+    "exampleDe": "Eine gute Fehlerbehandlung verhindert unerwartete Abstürze.",
+    "exampleEn": "Good error handling prevents unexpected crashes."
+  },
+  {
+    "id": "development-46",
+    "category": "development",
+    "german": "der Quellcode",
+    "english": "source code",
+    "exampleDe": "Der Quellcode des Projekts ist gut kommentiert.",
+    "exampleEn": "The source code of the project is well-commented."
+  },
+  {
+    "id": "development-47",
+    "category": "development",
+    "german": "der Algorithmus",
+    "english": "algorithm",
+    "exampleDe": "Dieser Algorithmus findet den kürzesten Weg sehr effizient.",
+    "exampleEn": "This algorithm finds the shortest path very efficiently."
+  },
+  {
+    "id": "development-48",
+    "category": "development",
+    "german": "die Bibliothek",
+    "english": "library",
+    "exampleDe": "Für die Datenanalyse nutzen wir eine bekannte Python-Bibliothek.",
+    "exampleEn": "For data analysis, we use a well-known Python library."
+  },
+  {
+    "id": "development-49",
+    "category": "development",
+    "german": "das Framework",
+    "english": "framework",
+    "exampleDe": "React ist ein beliebtes Framework für Benutzeroberflächen.",
+    "exampleEn": "React is a popular framework for user interfaces."
+  },
+  {
+    "id": "development-50",
+    "category": "development",
+    "german": "der Compiler",
+    "english": "compiler",
+    "exampleDe": "Der Compiler meldet einen Syntaxfehler in Zeile 42.",
+    "exampleEn": "The compiler reports a syntax error on line 42."
+  },
+  {
+    "id": "development-51",
+    "category": "development",
+    "german": "der Interpreter",
+    "english": "interpreter",
+    "exampleDe": "Python führt den Code Zeile für Zeile über einen Interpreter aus.",
+    "exampleEn": "Python executes the code line by line via an interpreter."
+  },
+  {
+    "id": "development-52",
+    "category": "development",
+    "german": "das Debugging",
+    "english": "debugging",
+    "exampleDe": "Das Debugging dieses Problems hat mich den ganzen Tag gekostet.",
+    "exampleEn": "Debugging this issue took me all day."
+  },
+  {
+    "id": "development-53",
+    "category": "development",
+    "german": "der Fehler",
+    "english": "bug",
+    "exampleDe": "Wir haben einen kritischen Fehler in der Produktionsumgebung gefunden.",
+    "exampleEn": "We found a critical bug in the production environment."
+  },
+  {
+    "id": "development-54",
+    "category": "development",
+    "german": "die Fehlerbehebung",
+    "english": "fix / debugging",
+    "exampleDe": "Der Kunde wartet dringend auf die Fehlerbehebung.",
+    "exampleEn": "The client is urgently waiting for the fix."
+  },
+  {
+    "id": "development-55",
+    "category": "development",
+    "german": "die Version",
+    "english": "version",
+    "exampleDe": "Wir veröffentlichen morgen die neue Version der Software.",
+    "exampleEn": "We are releasing the new version of the software tomorrow."
+  },
+  {
+    "id": "development-56",
+    "category": "development",
+    "german": "die Versionsverwaltung",
+    "english": "version control",
+    "exampleDe": "Git ist das Standardwerkzeug für die Versionsverwaltung.",
+    "exampleEn": "Git is the standard tool for version control."
+  },
+  {
+    "id": "development-57",
+    "category": "development",
+    "german": "das Repository",
+    "english": "repository",
+    "exampleDe": "Klone dir zuerst das Repository auf deinen Rechner.",
+    "exampleEn": "First, clone the repository onto your machine."
+  },
+  {
+    "id": "development-58",
+    "category": "development",
+    "german": "der Pull-Request",
+    "english": "pull request",
+    "exampleDe": "Kannst du bitte meinen Pull-Request überprüfen?",
+    "exampleEn": "Can you please review my pull request?"
+  },
+  {
+    "id": "development-59",
+    "category": "development",
+    "german": "der Branch",
+    "english": "branch",
+    "exampleDe": "Erstelle für jedes neue Feature einen eigenen Branch.",
+    "exampleEn": "Create a separate branch for each new feature."
+  },
+  {
+    "id": "development-60",
+    "category": "development",
+    "german": "mergen",
+    "english": "to merge",
+    "exampleDe": "Nach dem Code-Review können wir die Änderungen mergen.",
+    "exampleEn": "After the code review, we can merge the changes."
+  },
+  {
+    "id": "oop-61",
+    "category": "oop",
+    "german": "die Klasse",
+    "english": "class",
+    "exampleDe": "Die Klasse Auto definiert alle grundlegenden Eigenschaften.",
+    "exampleEn": "The class Car defines all basic properties."
+  },
+  {
+    "id": "oop-62",
+    "category": "oop",
+    "german": "das Objekt",
+    "english": "object",
+    "exampleDe": "Jeder angemeldete Nutzer wird als Objekt dargestellt.",
+    "exampleEn": "Each logged-in user is represented as an object."
+  },
+  {
+    "id": "oop-63",
+    "category": "oop",
+    "german": "die Instanz",
+    "english": "instance",
+    "exampleDe": "Wir erzeugen eine neue Instanz der Datenbankverbindung.",
+    "exampleEn": "We create a new instance of the database connection."
+  },
+  {
+    "id": "oop-64",
+    "category": "oop",
+    "german": "die Vererbung",
+    "english": "inheritance",
+    "exampleDe": "Durch Vererbung vermeiden wir doppelten Code.",
+    "exampleEn": "Through inheritance, we avoid duplicate code."
+  },
+  {
+    "id": "oop-65",
+    "category": "oop",
+    "german": "die Polymorphie",
+    "english": "polymorphism",
+    "exampleDe": "Polymorphie erlaubt es, Objekte unterschiedlich zu behandeln.",
+    "exampleEn": "Polymorphism allows objects to be treated differently."
+  },
+  {
+    "id": "oop-66",
+    "category": "oop",
+    "german": "die Kapselung",
+    "english": "encapsulation",
+    "exampleDe": "Die Kapselung schützt interne Daten vor direktem Zugriff.",
+    "exampleEn": "Encapsulation protects internal data from direct access."
+  },
+  {
+    "id": "oop-67",
+    "category": "oop",
+    "german": "die Abstraktion",
+    "english": "abstraction",
+    "exampleDe": "Abstraktion hilft dabei, komplexe Systeme zu vereinfachen.",
+    "exampleEn": "Abstraction helps to simplify complex systems."
+  },
+  {
+    "id": "oop-68",
+    "category": "oop",
+    "german": "die Eigenschaft",
+    "english": "property",
+    "exampleDe": "Farbe ist eine Eigenschaft dieses Objekts.",
+    "exampleEn": "Color is a property of this object."
+  },
+  {
+    "id": "oop-69",
+    "category": "oop",
+    "german": "der Konstruktor",
+    "english": "constructor",
+    "exampleDe": "Der Konstruktor initialisiert die Werte beim Erstellen des Objekts.",
+    "exampleEn": "The constructor initializes the values when creating the object."
+  },
+  {
+    "id": "oop-70",
+    "category": "oop",
+    "german": "die Schnittstelle",
+    "english": "interface",
+    "exampleDe": "Die Klasse implementiert die vorgegebene Schnittstelle.",
+    "exampleEn": "The class implements the specified interface."
+  },
+  {
+    "id": "web-71",
+    "category": "web",
+    "german": "die Datenbank",
+    "english": "database",
+    "exampleDe": "Alle Kundendaten werden sicher in der Datenbank gespeichert.",
+    "exampleEn": "All customer data is stored securely in the database."
+  },
+  {
+    "id": "web-72",
+    "category": "web",
+    "german": "die Abfrage",
+    "english": "query",
+    "exampleDe": "Diese SQL-Abfrage dauert leider viel zu lange.",
+    "exampleEn": "This SQL query unfortunately takes way too long."
+  },
+  {
+    "id": "web-73",
+    "category": "web",
+    "german": "die Tabelle",
+    "english": "table",
+    "exampleDe": "Jeder Benutzer hat eine eigene Zeile in der Tabelle.",
+    "exampleEn": "Each user has their own row in the table."
+  },
+  {
+    "id": "web-74",
+    "category": "web",
+    "german": "der Primärschlüssel",
+    "english": "primary key",
+    "exampleDe": "Die Kundennummer dient hier als Primärschlüssel.",
+    "exampleEn": "The customer number serves as the primary key here."
+  },
+  {
+    "id": "web-75",
+    "category": "web",
+    "german": "die Website",
+    "english": "website",
+    "exampleDe": "Unsere Website ist jetzt auch für Smartphones optimiert.",
+    "exampleEn": "Our website is now also optimized for smartphones."
+  },
+  {
+    "id": "web-76",
+    "category": "web",
+    "german": "die Anwendung",
+    "english": "application",
+    "exampleDe": "Wir entwickeln eine moderne Anwendung für die Logistikbranche.",
+    "exampleEn": "We are developing a modern application for the logistics industry."
+  },
+  {
+    "id": "web-77",
+    "category": "web",
+    "german": "das Frontend",
+    "english": "frontend",
+    "exampleDe": "Das Frontend sorgt für eine gute Benutzererfahrung.",
+    "exampleEn": "The frontend ensures a good user experience."
+  },
+  {
+    "id": "web-78",
+    "category": "web",
+    "german": "das Backend",
+    "english": "backend",
+    "exampleDe": "Die gesamte Geschäftslogik befindet sich im Backend.",
+    "exampleEn": "The entire business logic is located in the backend."
+  },
+  {
+    "id": "web-79",
+    "category": "web",
+    "german": "der Client",
+    "english": "client",
+    "exampleDe": "Der Client sendet die Formulardaten an den Server.",
+    "exampleEn": "The client sends the form data to the server."
+  },
+  {
+    "id": "web-80",
+    "category": "web",
+    "german": "die Anfrage",
+    "english": "request",
+    "exampleDe": "Der Server hat die HTTP-Anfrage erfolgreich empfangen.",
+    "exampleEn": "The server successfully received the HTTP request."
+  },
+  {
+    "id": "web-81",
+    "category": "web",
+    "german": "die Antwort",
+    "english": "response",
+    "exampleDe": "Die Antwort des Servers kam im JSON-Format zurück.",
+    "exampleEn": "The server's response came back in JSON format."
+  },
+  {
+    "id": "web-82",
+    "category": "web",
+    "german": "das Skript",
+    "english": "script",
+    "exampleDe": "Dieses Skript automatisiert den täglichen Datenimport.",
+    "exampleEn": "This script automates the daily data import."
+  },
+  {
+    "id": "security-ops-83",
+    "category": "security-ops",
+    "german": "das Passwort",
+    "english": "password",
+    "exampleDe": "Bitte wähle ein sicheres Passwort mit Sonderzeichen.",
+    "exampleEn": "Please choose a strong password with special characters."
+  },
+  {
+    "id": "security-ops-84",
+    "category": "security-ops",
+    "german": "die Verschlüsselung",
+    "english": "encryption",
+    "exampleDe": "Ende-zu-Ende-Verschlüsselung schützt private Nachrichten.",
+    "exampleEn": "End-to-end encryption protects private messages."
+  },
+  {
+    "id": "security-ops-85",
+    "category": "security-ops",
+    "german": "die Entschlüsselung",
+    "english": "decryption",
+    "exampleDe": "Für die Entschlüsselung wird der private Schlüssel benötigt.",
+    "exampleEn": "The private key is required for decryption."
+  },
+  {
+    "id": "security-ops-86",
+    "category": "security-ops",
+    "german": "die Firewall",
+    "english": "firewall",
+    "exampleDe": "Die Firewall blockiert verdächtigen Datenverkehr aus dem Internet.",
+    "exampleEn": "The firewall blocks suspicious traffic from the internet."
+  },
+  {
+    "id": "security-ops-87",
+    "category": "security-ops",
+    "german": "der Virus",
+    "english": "virus",
+    "exampleDe": "Ein Virus hat mehrere Dateien auf dem System infiziert.",
+    "exampleEn": "A virus infected several files on the system."
+  },
+  {
+    "id": "security-ops-88",
+    "category": "security-ops",
+    "german": "die Schadsoftware",
+    "english": "malware",
+    "exampleDe": "Öffne keine unbekannten Anhänge wegen möglicher Schadsoftware.",
+    "exampleEn": "Do not open unknown attachments due to possible malware."
+  },
+  {
+    "id": "security-ops-89",
+    "category": "security-ops",
+    "german": "die Anmeldung",
+    "english": "login",
+    "exampleDe": "Für die Anmeldung ist eine Zwei-Faktor-Authentifizierung nötig.",
+    "exampleEn": "Two-factor authentication is required for login."
+  },
+  {
+    "id": "security-ops-90",
+    "category": "security-ops",
+    "german": "die Berechtigung",
+    "english": "permission",
+    "exampleDe": "Du hast leider keine Berechtigung, diese Datei zu löschen.",
+    "exampleEn": "Unfortunately, you do not have permission to delete this file."
+  },
+  {
+    "id": "workplace-91",
+    "category": "workplace",
+    "german": "der Softwareentwickler",
+    "english": "software developer",
+    "exampleDe": "Er arbeitet seit fünf Jahren als Softwareentwickler in Berlin.",
+    "exampleEn": "He has been working as a software developer in Berlin for five years."
+  },
+  {
+    "id": "workplace-92",
+    "category": "workplace",
+    "german": "der Programmierer",
+    "english": "programmer",
+    "exampleDe": "Ein guter Programmierer schreibt sauberen und lesbaren Code.",
+    "exampleEn": "A good programmer writes clean and readable code."
+  },
+  {
+    "id": "workplace-93",
+    "category": "workplace",
+    "german": "der Systemadministrator",
+    "english": "system administrator",
+    "exampleDe": "Der Systemadministrator kümmert sich um die Wartung der Server.",
+    "exampleEn": "The system administrator takes care of server maintenance."
+  },
+  {
+    "id": "workplace-94",
+    "category": "workplace",
+    "german": "der IT-Spezialist",
+    "english": "IT specialist",
+    "exampleDe": "Wir suchen einen IT-Spezialisten für Netzwerksicherheit.",
+    "exampleEn": "We are looking for an IT specialist for network security."
+  },
+  {
+    "id": "workplace-95",
+    "category": "workplace",
+    "german": "der Datenwissenschaftler",
+    "english": "data scientist",
+    "exampleDe": "Der Datenwissenschaftler erstellt Modelle zur Vorhersage von Trends.",
+    "exampleEn": "The data scientist creates models to predict trends."
+  },
+  {
+    "id": "workplace-96",
+    "category": "workplace",
+    "german": "das Projekt",
+    "english": "project",
+    "exampleDe": "Das Projekt liegt genau im Zeit- und Budgetplan.",
+    "exampleEn": "The project is right on schedule and on budget."
+  },
+  {
+    "id": "workplace-97",
+    "category": "workplace",
+    "german": "der Sprint",
+    "english": "sprint",
+    "exampleDe": "In diesem Sprint konzentrieren wir uns auf die neue Zahlungsfunktion.",
+    "exampleEn": "In this sprint, we are focusing on the new payment feature."
+  },
+  {
+    "id": "workplace-98",
+    "category": "workplace",
+    "german": "das Ticket",
+    "english": "ticket",
+    "exampleDe": "Ich habe dir ein neues Ticket in Jira zugewiesen.",
+    "exampleEn": "I assigned a new ticket to you in Jira."
+  },
+  {
+    "id": "workplace-99",
+    "category": "workplace",
+    "german": "die Abnahme",
+    "english": "acceptance / sign-off",
+    "exampleDe": "Nach der erfolgreichen Abnahme durch den Kunden gehen wir live.",
+    "exampleEn": "After successful sign-off by the client, we go live."
+  },
+  {
+    "id": "workplace-100",
+    "category": "workplace",
+    "german": "die Dokumentation",
+    "english": "documentation",
+    "exampleDe": "Lies dir bitte zuerst die Dokumentation der API durch.",
+    "exampleEn": "Please read through the API documentation first."
+  },
+  {
+    "id": "devops-101",
+    "category": "devops",
+    "german": "die Bereitstellung",
+    "english": "deployment",
+    "exampleDe": "Die automatische Bereitstellung spart dem Team viel Zeit.",
+    "exampleEn": "Automated deployment saves the team a lot of time."
+  },
+  {
+    "id": "devops-102",
+    "category": "devops",
+    "german": "der Container",
+    "english": "container",
+    "exampleDe": "Wir verpacken die Anwendung in einen Docker-Container.",
+    "exampleEn": "We package the application into a Docker container."
+  },
+  {
+    "id": "devops-103",
+    "category": "devops",
+    "german": "das Image",
+    "english": "image",
+    "exampleDe": "Das neue Image wurde erfolgreich in die Registry hochgeladen.",
+    "exampleEn": "The new image was successfully uploaded to the registry."
+  },
+  {
+    "id": "devops-104",
+    "category": "devops",
+    "german": "die Skalierbarkeit",
+    "english": "scalability",
+    "exampleDe": "Die Skalierbarkeit der Cloud-Architektur ist ein großer Vorteil.",
+    "exampleEn": "The scalability of the cloud architecture is a big advantage."
+  },
+  {
+    "id": "devops-105",
+    "category": "devops",
+    "german": "der Lastausgleich",
+    "english": "load balancer",
+    "exampleDe": "Der Lastausgleich verteilt den Datenverkehr auf mehrere Server.",
+    "exampleEn": "Load balancing distributes the traffic across multiple servers."
+  },
+  {
+    "id": "devops-106",
+    "category": "devops",
+    "german": "die Ausfallzeit",
+    "english": "downtime",
+    "exampleDe": "Während des Updates gab es keine spürbare Ausfallzeit.",
+    "exampleEn": "During the update, there was no noticeable downtime."
+  },
+  {
+    "id": "devops-107",
+    "category": "devops",
+    "german": "die Verfügbarkeit",
+    "english": "availability",
+    "exampleDe": "Wir garantieren eine Verfügbarkeit von 99,9 Prozent.",
+    "exampleEn": "We guarantee an availability of 99.9 percent."
+  },
+  {
+    "id": "devops-108",
+    "category": "devops",
+    "german": "die Umgebung",
+    "english": "environment",
+    "exampleDe": "Teste das Feature zuerst in der Testumgebung.",
+    "exampleEn": "Test the feature in the test environment first."
+  },
+  {
+    "id": "devops-109",
+    "category": "devops",
+    "german": "die Produktion",
+    "english": "production",
+    "exampleDe": "Der Code läuft jetzt stabil in der Produktion.",
+    "exampleEn": "The code is now running stably in production."
+  },
+  {
+    "id": "devops-110",
+    "category": "devops",
+    "german": "die Pipeline",
+    "english": "pipeline",
+    "exampleDe": "Die CI/CD-Pipeline führt bei jedem Commit automatisch Tests aus.",
+    "exampleEn": "The CI/CD pipeline automatically runs tests on every commit."
+  },
+  {
+    "id": "devops-111",
+    "category": "devops",
+    "german": "der Cluster",
+    "english": "cluster",
+    "exampleDe": "Unser Kubernetes-Cluster verwaltet über fünfzig Knoten.",
+    "exampleEn": "Our Kubernetes cluster manages over fifty nodes."
+  },
+  {
+    "id": "devops-112",
+    "category": "devops",
+    "german": "der Knoten",
+    "english": "node",
+    "exampleDe": "Ein Knoten im Netzwerk ist ausgefallen.",
+    "exampleEn": "A node in the network has failed."
+  },
+  {
+    "id": "devops-113",
+    "category": "devops",
+    "german": "die Überwachung",
+    "english": "monitoring",
+    "exampleDe": "Die kontinuierliche Überwachung erkennt Engpässe frühzeitig.",
+    "exampleEn": "Continuous monitoring detects bottlenecks early."
+  },
+  {
+    "id": "devops-114",
+    "category": "devops",
+    "german": "die Protokollierung",
+    "english": "logging",
+    "exampleDe": "Aktiviere die detaillierte Protokollierung, um den Fehler zu finden.",
+    "exampleEn": "Enable detailed logging to find the error."
+  },
+  {
+    "id": "devops-115",
+    "category": "devops",
+    "german": "die Konfigurationsdatei",
+    "english": "configuration file",
+    "exampleDe": "Die Zugangsdaten stehen nicht in der Konfigurationsdatei.",
+    "exampleEn": "The credentials are not in the configuration file."
+  },
+  {
+    "id": "qa-116",
+    "category": "qa",
+    "german": "der Modultest",
+    "english": "unit test",
+    "exampleDe": "Jede neue Funktion braucht einen eigenen Modultest.",
+    "exampleEn": "Every new function needs its own unit test."
+  },
+  {
+    "id": "qa-117",
+    "category": "qa",
+    "german": "der Integrationstest",
+    "english": "integration test",
+    "exampleDe": "Der Integrationstest prüft das Zusammenspiel der Komponenten.",
+    "exampleEn": "The integration test checks the interaction of the components."
+  },
+  {
+    "id": "qa-118",
+    "category": "qa",
+    "german": "die Testabdeckung",
+    "english": "test coverage",
+    "exampleDe": "Wir wollen die Testabdeckung auf über achtzig Prozent erhöhen.",
+    "exampleEn": "We want to increase test coverage to over eighty percent."
+  },
+  {
+    "id": "qa-119",
+    "category": "qa",
+    "german": "die Qualitätssicherung",
+    "english": "quality assurance",
+    "exampleDe": "Die Qualitätssicherung hat noch zwei kleinere Fehler entdeckt.",
+    "exampleEn": "Quality assurance discovered two more minor bugs."
+  },
+  {
+    "id": "qa-120",
+    "category": "qa",
+    "german": "der Testfall",
+    "english": "test case",
+    "exampleDe": "Dieser Testfall deckt auch ungültige Eingaben ab.",
+    "exampleEn": "This test case also covers invalid inputs."
+  },
+  {
+    "id": "qa-121",
+    "category": "qa",
+    "german": "das Mock-Objekt",
+    "english": "mock object",
+    "exampleDe": "Für den Test ersetzen wir die Datenbank durch ein Mock-Objekt.",
+    "exampleEn": "For the test, we replace the database with a mock object."
+  },
+  {
+    "id": "qa-122",
+    "category": "qa",
+    "german": "der Regressionstest",
+    "english": "regression test",
+    "exampleDe": "Ein Regressionstest stellt sicher, dass alte Funktionen noch laufen.",
+    "exampleEn": "A regression test ensures that old features still work."
+  },
+  {
+    "id": "qa-123",
+    "category": "qa",
+    "german": "die Leistung",
+    "english": "performance",
+    "exampleDe": "Die Leistung der App hat sich deutlich verbessert.",
+    "exampleEn": "The performance of the app has improved significantly."
+  },
+  {
+    "id": "qa-124",
+    "category": "qa",
+    "german": "der Lasttest",
+    "english": "load test",
+    "exampleDe": "Der Lasttest simuliert zehntausend gleichzeitige Nutzer.",
+    "exampleEn": "The load test simulates ten thousand concurrent users."
+  },
+  {
+    "id": "qa-125",
+    "category": "qa",
+    "german": "die Spezifikation",
+    "english": "specification",
+    "exampleDe": "Die Umsetzung entspricht genau der technischen Spezifikation.",
+    "exampleEn": "The implementation corresponds exactly to the technical specification."
+  },
+  {
+    "id": "architecture-126",
+    "category": "architecture",
+    "german": "die Architektur",
+    "english": "architecture",
+    "exampleDe": "Eine saubere Architektur erleichtert spätere Erweiterungen.",
+    "exampleEn": "A clean architecture makes future extensions easier."
+  },
+  {
+    "id": "architecture-127",
+    "category": "architecture",
+    "german": "der Mikrodienst",
+    "english": "microservice",
+    "exampleDe": "Jeder Mikrodienst hat seine eigene Datenbank.",
+    "exampleEn": "Each microservice has its own database."
+  },
+  {
+    "id": "architecture-128",
+    "category": "architecture",
+    "german": "der Monolith",
+    "english": "monolith",
+    "exampleDe": "Wir teilen den alten Monolithen schrittweise in kleinere Dienste auf.",
+    "exampleEn": "We are gradually splitting the old monolith into smaller services."
+  },
+  {
+    "id": "architecture-129",
+    "category": "architecture",
+    "german": "die Abhängigkeit",
+    "english": "dependency",
+    "exampleDe": "Aktualisiere alle veralteten Abhängigkeiten im Projekt.",
+    "exampleEn": "Update all outdated dependencies in the project."
+  },
+  {
+    "id": "architecture-130",
+    "category": "architecture",
+    "german": "die Entkopplung",
+    "english": "decoupling",
+    "exampleDe": "Die Entkopplung der Module reduziert das Risiko von Seiteneffekten.",
+    "exampleEn": "The decoupling of the modules reduces the risk of side effects."
+  },
+  {
+    "id": "architecture-131",
+    "category": "architecture",
+    "german": "der Zwischenspeicher",
+    "english": "cache",
+    "exampleDe": "Häufig genutzte Daten landen direkt im Zwischenspeicher.",
+    "exampleEn": "Frequently used data goes straight into the cache."
+  },
+  {
+    "id": "architecture-132",
+    "category": "architecture",
+    "german": "die Latenz",
+    "english": "latency",
+    "exampleDe": "Eine niedrige Latenz ist für Echtzeitanwendungen entscheidend.",
+    "exampleEn": "Low latency is crucial for real-time applications."
+  },
+  {
+    "id": "architecture-133",
+    "category": "architecture",
+    "german": "der Durchsatz",
+    "english": "throughput",
+    "exampleDe": "Wir konnten den Durchsatz der Datenverarbeitung verdoppeln.",
+    "exampleEn": "We were able to double the throughput of data processing."
+  },
+  {
+    "id": "architecture-134",
+    "category": "architecture",
+    "german": "das Entwurfsmuster",
+    "english": "design pattern",
+    "exampleDe": "Das Singleton-Entwurfsmuster wird hier oft eingesetzt.",
+    "exampleEn": "The Singleton design pattern is often used here."
+  },
+  {
+    "id": "architecture-135",
+    "category": "architecture",
+    "german": "die Wartbarkeit",
+    "english": "maintainability",
+    "exampleDe": "Gut strukturierter Code erhöht die Wartbarkeit langfristig.",
+    "exampleEn": "Well-structured code increases maintainability in the long term."
+  },
+  {
+    "id": "advanced-136",
+    "category": "advanced",
+    "german": "die Nebenläufigkeit",
+    "english": "concurrency",
+    "exampleDe": "Go bietet hervorragende Unterstützung für Nebenläufigkeit.",
+    "exampleEn": "Go offers excellent support for concurrency."
+  },
+  {
+    "id": "advanced-137",
+    "category": "advanced",
+    "german": "der Thread",
+    "english": "thread",
+    "exampleDe": "Die Berechnung läuft asynchron in einem eigenen Thread.",
+    "exampleEn": "The calculation runs asynchronously in its own thread."
+  },
+  {
+    "id": "advanced-138",
+    "category": "advanced",
+    "german": "die Speicherverwaltung",
+    "english": "memory management",
+    "exampleDe": "Rust übernimmt die Speicherverwaltung ohne Garbage Collector.",
+    "exampleEn": "Rust handles memory management without a garbage collector."
+  },
+  {
+    "id": "advanced-139",
+    "category": "advanced",
+    "german": "das Speicherleck",
+    "english": "memory leak",
+    "exampleDe": "Ein Speicherleck führt nach einigen Stunden zum Absturz.",
+    "exampleEn": "A memory leak leads to a crash after a few hours."
+  },
+  {
+    "id": "advanced-140",
+    "category": "advanced",
+    "german": "die Rekursion",
+    "english": "recursion",
+    "exampleDe": "Für Baumstrukturen eignet sich Rekursion besonders gut.",
+    "exampleEn": "Recursion is particularly well-suited for tree structures."
+  },
+  {
+    "id": "advanced-141",
+    "category": "advanced",
+    "german": "der Zeichensatz",
+    "english": "character set",
+    "exampleDe": "Wir verwenden durchgehend den UTF-8-Zeichensatz.",
+    "exampleEn": "We use the UTF-8 character set throughout."
+  },
+  {
+    "id": "advanced-142",
+    "category": "advanced",
+    "german": "die Syntax",
+    "english": "syntax",
+    "exampleDe": "Die Syntax von Python ist sehr leicht zu lesen.",
+    "exampleEn": "The syntax of Python is very easy to read."
+  },
+  {
+    "id": "advanced-143",
+    "category": "advanced",
+    "german": "die Semantik",
+    "english": "semantics",
+    "exampleDe": "Die Semantik beschreibt die eigentliche Bedeutung des Codes.",
+    "exampleEn": "Semantics describes the actual meaning of the code."
+  },
+  {
+    "id": "advanced-144",
+    "category": "advanced",
+    "german": "die Überarbeitung",
+    "english": "refactoring",
+    "exampleDe": "Das Refactoring hat den Code deutlich übersichtlicher gemacht.",
+    "exampleEn": "The refactoring made the code significantly clearer."
+  },
+  {
+    "id": "advanced-145",
+    "category": "advanced",
+    "german": "die technische Schuld",
+    "english": "technical debt",
+    "exampleDe": "Wir müssen im nächsten Sprint technische Schulden abbauen.",
+    "exampleEn": "We need to pay down technical debt in the next sprint."
+  },
+  {
+    "id": "advanced-146",
+    "category": "advanced",
+    "german": "veraltet",
+    "english": "deprecated",
+    "exampleDe": "Diese Methode ist veraltet und sollte nicht mehr genutzt werden.",
+    "exampleEn": "This method is deprecated and should no longer be used."
+  },
+  {
+    "id": "advanced-147",
+    "category": "advanced",
+    "german": "der Namensraum",
+    "english": "namespace",
+    "exampleDe": "Ein Namensraum verhindert Konflikte bei gleichen Funktionsnamen.",
+    "exampleEn": "A namespace prevents conflicts with identical function names."
+  },
+  {
+    "id": "advanced-148",
+    "category": "advanced",
+    "german": "die Typisierung",
+    "english": "typing",
+    "exampleDe": "Strenge Typisierung hilft, viele Fehler schon beim Schreiben zu finden.",
+    "exampleEn": "Strict typing helps find many errors while writing."
+  },
+  {
+    "id": "advanced-149",
+    "category": "advanced",
+    "german": "der Ausdruck",
+    "english": "expression",
+    "exampleDe": "Dieser reguläre Ausdruck prüft, ob die E-Mail-Adresse gültig ist.",
+    "exampleEn": "This regular expression checks if the email address is valid."
+  },
+  {
+    "id": "advanced-150",
+    "category": "advanced",
+    "german": "die Anweisung",
+    "english": "statement",
+    "exampleDe": "Jede Anweisung in Java endet mit einem Semikolon.",
+    "exampleEn": "Every statement in Java ends with a semicolon."
+  },
+  {
+    "id": "networking-151",
+    "category": "networking",
+    "german": "die Bandbreite",
+    "english": "bandwidth",
+    "exampleDe": "Für das Video-Streaming ist eine hohe Bandbreite nötig.",
+    "exampleEn": "High bandwidth is required for video streaming."
+  },
+  {
+    "id": "networking-152",
+    "category": "networking",
+    "german": "das Protokoll",
+    "english": "protocol",
+    "exampleDe": "HTTPS ist ein sicheres Protokoll für die Datenübertragung.",
+    "exampleEn": "HTTPS is a secure protocol for data transmission."
+  },
+  {
+    "id": "networking-153",
+    "category": "networking",
+    "german": "der Port",
+    "english": "port",
+    "exampleDe": "Der Webserver lauscht standardmäßig auf Port 443.",
+    "exampleEn": "The web server listens on port 443 by default."
+  },
+  {
+    "id": "networking-154",
+    "category": "networking",
+    "german": "die IP-Adresse",
+    "english": "IP address",
+    "exampleDe": "Jedes Gerät im Netzwerk erhält eine eigene IP-Adresse.",
+    "exampleEn": "Each device in the network receives its own IP address."
+  },
+  {
+    "id": "networking-155",
+    "category": "networking",
+    "german": "der Domänenname",
+    "english": "domain name",
+    "exampleDe": "Wir haben einen neuen Domänennamen für das Produkt registriert.",
+    "exampleEn": "We registered a new domain name for the product."
+  },
+  {
+    "id": "networking-156",
+    "category": "networking",
+    "german": "das Zertifikat",
+    "english": "certificate",
+    "exampleDe": "Das SSL-Zertifikat der Webseite ist gestern abgelaufen.",
+    "exampleEn": "The website's SSL certificate expired yesterday."
+  },
+  {
+    "id": "networking-157",
+    "category": "networking",
+    "german": "der Endpunkt",
+    "english": "endpoint",
+    "exampleDe": "Dieser API-Endpunkt liefert alle aktiven Bestellungen zurück.",
+    "exampleEn": "This API endpoint returns all active orders."
+  },
+  {
+    "id": "networking-158",
+    "category": "networking",
+    "german": "die Nutzlast",
+    "english": "payload",
+    "exampleDe": "Die JSON-Nutzlast der Anfrage darf nicht zu groß sein.",
+    "exampleEn": "The JSON payload of the request must not be too large."
+  },
+  {
+    "id": "networking-159",
+    "category": "networking",
+    "german": "der Header",
+    "english": "header",
+    "exampleDe": "Das Authentifizierungs-Token wird im HTTP-Header mitgeschickt.",
+    "exampleEn": "The authentication token is sent along in the HTTP header."
+  },
+  {
+    "id": "networking-160",
+    "category": "networking",
+    "german": "die Sitzung",
+    "english": "session",
+    "exampleDe": "Deine Sitzung ist aus Sicherheitsgründen abgelaufen.",
+    "exampleEn": "Your session has expired for security reasons."
+  },
+  {
+    "id": "data-161",
+    "category": "data",
+    "german": "der Fremdschlüssel",
+    "english": "foreign key",
+    "exampleDe": "Der Fremdschlüssel verknüpft die Bestellungen mit den Kunden.",
+    "exampleEn": "The foreign key links the orders with the customers."
+  },
+  {
+    "id": "data-162",
+    "category": "data",
+    "german": "der Index",
+    "english": "index",
+    "exampleDe": "Ein Index auf dieser Spalte beschleunigt die Suche enorm.",
+    "exampleEn": "An index on this column speeds up the search enormously."
+  },
+  {
+    "id": "data-163",
+    "category": "data",
+    "german": "die Transaktion",
+    "english": "transaction",
+    "exampleDe": "Wenn ein Fehler auftritt, wird die gesamte Transaktion zurückgesetzt.",
+    "exampleEn": "If an error occurs, the entire transaction is rolled back."
+  },
+  {
+    "id": "data-164",
+    "category": "data",
+    "german": "die Datensicherung",
+    "english": "data backup",
+    "exampleDe": "Die nächtliche Datensicherung lief ohne Probleme durch.",
+    "exampleEn": "The nightly data backup ran through without any problems."
+  },
+  {
+    "id": "data-165",
+    "category": "data",
+    "german": "die Datenmigration",
+    "english": "data migration",
+    "exampleDe": "Die Datenmigration auf das neue System findet am Wochenende statt.",
+    "exampleEn": "The data migration to the new system takes place on the weekend."
+  },
+  {
+    "id": "data-166",
+    "category": "data",
+    "german": "der Datensatz",
+    "english": "data record",
+    "exampleDe": "Jeder Datensatz enthält einen Zeitstempel der Erstellung.",
+    "exampleEn": "Each data record contains a creation timestamp."
+  },
+  {
+    "id": "data-167",
+    "category": "data",
+    "german": "die Redundanz",
+    "english": "redundancy",
+    "exampleDe": "Durch Redundanz schützen wir das System vor Datenverlust.",
+    "exampleEn": "Through redundancy, we protect the system from data loss."
+  },
+  {
+    "id": "data-168",
+    "category": "data",
+    "german": "die Normalisierung",
+    "english": "normalization",
+    "exampleDe": "Die Normalisierung verhindert doppelte Einträge in der Datenbank.",
+    "exampleEn": "Normalization prevents duplicate entries in the database."
+  },
+  {
+    "id": "data-169",
+    "category": "data",
+    "german": "die Datenpipeline",
+    "english": "data pipeline",
+    "exampleDe": "Die Datenpipeline bereitet Rohdaten für die Analyse auf.",
+    "exampleEn": "The data pipeline prepares raw data for the analysis."
+  },
+  {
+    "id": "data-170",
+    "category": "data",
+    "german": "der Data Lake",
+    "english": "data lake",
+    "exampleDe": "Unstrukturierte Daten speichern wir zentral im Data Lake.",
+    "exampleEn": "We store unstructured data centrally in the data lake."
+  },
+  {
+    "id": "privacy-171",
+    "category": "privacy",
+    "german": "die Schwachstelle",
+    "english": "vulnerability",
+    "exampleDe": "Das Sicherheitsupdate schließt eine kritische Schwachstelle.",
+    "exampleEn": "The security update closes a critical vulnerability."
+  },
+  {
+    "id": "privacy-172",
+    "category": "privacy",
+    "german": "der Angriff",
+    "english": "attack",
+    "exampleDe": "Die Firewall hat den DDoS-Angriff erfolgreich abgewehrt.",
+    "exampleEn": "The firewall successfully fended off the DDoS attack."
+  },
+  {
+    "id": "privacy-173",
+    "category": "privacy",
+    "german": "die Authentifizierung",
+    "english": "authentication",
+    "exampleDe": "Die Authentifizierung bestätigt die Identität des Benutzers.",
+    "exampleEn": "Authentication confirms the identity of the user."
+  },
+  {
+    "id": "privacy-174",
+    "category": "privacy",
+    "german": "die Autorisierung",
+    "english": "authorization",
+    "exampleDe": "Die Autorisierung regelt, welche Ressourcen ein Nutzer sehen darf.",
+    "exampleEn": "Authorization governs which resources a user is allowed to see."
+  },
+  {
+    "id": "privacy-175",
+    "category": "privacy",
+    "german": "der Zugriff",
+    "english": "access",
+    "exampleDe": "Unbefugter Zugriff auf den Server wird sofort blockiert.",
+    "exampleEn": "Unauthorized access to the server is blocked immediately."
+  },
+  {
+    "id": "privacy-176",
+    "category": "privacy",
+    "german": "der Hashwert",
+    "english": "hash value",
+    "exampleDe": "Passwörter werden niemals im Klartext, sondern als Hashwert gespeichert.",
+    "exampleEn": "Passwords are never stored in plain text, but as a hash value."
+  },
+  {
+    "id": "privacy-177",
+    "category": "privacy",
+    "german": "der Schlüssel",
+    "english": "key",
+    "exampleDe": "Bewahre den privaten Schlüssel an einem sicheren Ort auf.",
+    "exampleEn": "Keep the private key in a safe place."
+  },
+  {
+    "id": "privacy-178",
+    "category": "privacy",
+    "german": "der Datenschutz",
+    "english": "data privacy",
+    "exampleDe": "In Europa gelten strenge Regeln für den Datenschutz.",
+    "exampleEn": "Strict rules for data privacy apply in Europe."
+  },
+  {
+    "id": "privacy-179",
+    "category": "privacy",
+    "german": "die Sicherheitslücke",
+    "english": "security hole",
+    "exampleDe": "Entwickler sollten Sicherheitslücken sofort nach Bekanntwerden schließen.",
+    "exampleEn": "Developers should close security holes immediately upon discovery."
+  },
+  {
+    "id": "privacy-180",
+    "category": "privacy",
+    "german": "die Phishing-Mail",
+    "english": "phishing email",
+    "exampleDe": "Klicke niemals auf Links in einer verdächtigen Phishing-Mail.",
+    "exampleEn": "Never click on links in a suspicious phishing email."
+  },
+  {
+    "id": "ai-181",
+    "category": "ai",
+    "german": "die künstliche Intelligenz",
+    "english": "artificial intelligence",
+    "exampleDe": "Künstliche Intelligenz verändert die Softwareentwicklung rasant.",
+    "exampleEn": "Artificial intelligence is changing software development rapidly."
+  },
+  {
+    "id": "ai-182",
+    "category": "ai",
+    "german": "das maschinelle Lernen",
+    "english": "machine learning",
+    "exampleDe": "Für maschinelles Lernen benötigt man große Mengen an Trainingsdaten.",
+    "exampleEn": "For machine learning, you need large amounts of training data."
+  },
+  {
+    "id": "ai-183",
+    "category": "ai",
+    "german": "das neuronale Netz",
+    "english": "neural network",
+    "exampleDe": "Ein neuronales Netz erkennt Muster in komplexen Bildern.",
+    "exampleEn": "A neural network recognizes patterns in complex images."
+  },
+  {
+    "id": "ai-184",
+    "category": "ai",
+    "german": "der Trainingsdatensatz",
+    "english": "training dataset",
+    "exampleDe": "Der Trainingsdatensatz muss frei von Verzerrungen sein.",
+    "exampleEn": "The training dataset must be free of bias."
+  },
+  {
+    "id": "ai-185",
+    "category": "ai",
+    "german": "das Sprachmodell",
+    "english": "language model",
+    "exampleDe": "Ein großes Sprachmodell kann bei der Code-Generierung helfen.",
+    "exampleEn": "A large language model can help with code generation."
+  },
+  {
+    "id": "ai-186",
+    "category": "ai",
+    "german": "die Vorhersage",
+    "english": "prediction",
+    "exampleDe": "Die Vorhersage des Modells traf mit hoher Genauigkeit zu.",
+    "exampleEn": "The model's prediction came true with high accuracy."
+  },
+  {
+    "id": "ai-187",
+    "category": "ai",
+    "german": "die Mustererkennung",
+    "english": "pattern recognition",
+    "exampleDe": "Mustererkennung wird häufig in der Betrugsprävention eingesetzt.",
+    "exampleEn": "Pattern recognition is frequently used in fraud prevention."
+  },
+  {
+    "id": "ai-188",
+    "category": "ai",
+    "german": "die Eingabe",
+    "english": "input",
+    "exampleDe": "Die Qualität der Eingabe bestimmt die Qualität der Antwort.",
+    "exampleEn": "The quality of the input determines the quality of the answer."
+  },
+  {
+    "id": "ai-189",
+    "category": "ai",
+    "german": "die Ausgabe",
+    "english": "output",
+    "exampleDe": "Überprüfe die Ausgabe des Modells immer auf Richtigkeit.",
+    "exampleEn": "Always check the output of the model for accuracy."
+  },
+  {
+    "id": "ai-190",
+    "category": "ai",
+    "german": "die Automatisierung",
+    "english": "automation",
+    "exampleDe": "Durch Automatisierung reduzieren wir manuelle Routineaufgaben.",
+    "exampleEn": "Through automation, we reduce manual routine tasks."
+  },
+  {
+    "id": "product-191",
+    "category": "product",
+    "german": "die Benutzeroberfläche",
+    "english": "user interface",
+    "exampleDe": "Die neue Benutzeroberfläche ist deutlich intuitiver gestaltet.",
+    "exampleEn": "The new user interface is designed much more intuitively."
+  },
+  {
+    "id": "product-192",
+    "category": "product",
+    "german": "die Benutzerfreundlichkeit",
+    "english": "usability",
+    "exampleDe": "Gute Benutzerfreundlichkeit ist entscheidend für den Erfolg der App.",
+    "exampleEn": "Good usability is crucial for the success of the app."
+  },
+  {
+    "id": "product-193",
+    "category": "product",
+    "german": "die Barrierefreiheit",
+    "english": "accessibility",
+    "exampleDe": "Wir achten bei der Webentwicklung streng auf Barrierefreiheit.",
+    "exampleEn": "We pay strict attention to accessibility in web development."
+  },
+  {
+    "id": "product-194",
+    "category": "product",
+    "german": "der Prototyp",
+    "english": "prototype",
+    "exampleDe": "Wir präsentieren dem Kunden morgen einen klickbaren Prototypen.",
+    "exampleEn": "We are presenting a clickable prototype to the client tomorrow."
+  },
+  {
+    "id": "product-195",
+    "category": "product",
+    "german": "die Anforderung",
+    "english": "requirement",
+    "exampleDe": "Jede funktionale Anforderung wird im Backlog festgehalten.",
+    "exampleEn": "Every functional requirement is recorded in the backlog."
+  },
+  {
+    "id": "product-196",
+    "category": "product",
+    "german": "das Pflichtenheft",
+    "english": "functional specification",
+    "exampleDe": "Im Pflichtenheft steht genau, wie wir das Projekt umsetzen.",
+    "exampleEn": "The functional specification document states exactly how we will implement the project."
+  },
+  {
+    "id": "product-197",
+    "category": "product",
+    "german": "die Machbarkeitsstudie",
+    "english": "feasibility study",
+    "exampleDe": "Vor dem Start führen wir eine kurze Machbarkeitsstudie durch.",
+    "exampleEn": "Before starting, we conduct a short feasibility study."
+  },
+  {
+    "id": "product-198",
+    "category": "product",
+    "german": "der Engpass",
+    "english": "bottleneck",
+    "exampleDe": "Die Datenbank ist aktuell der größte Engpass im System.",
+    "exampleEn": "The database is currently the biggest bottleneck in the system."
+  },
+  {
+    "id": "product-199",
+    "category": "product",
+    "german": "die Rückwärtskompatibilität",
+    "english": "backward compatibility",
+    "exampleDe": "Die neue API-Version wahrt die volle Rückwärtskompatibilität.",
+    "exampleEn": "The new API version maintains full backward compatibility."
+  },
+  {
+    "id": "product-200",
+    "category": "product",
+    "german": "der Meilenstein",
+    "english": "milestone",
+    "exampleDe": "Die Fertigstellung der Beta-Version ist ein wichtiger Meilenstein.",
+    "exampleEn": "The completion of the beta version is an important milestone."
+  }
+]

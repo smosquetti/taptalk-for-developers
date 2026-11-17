@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches the web app: void background + neon accent -->
+    <color name="bg_void">#05070D</color>
+    <color name="neon">#22D3EE</color>
+</resources>

@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #05070d;
+  --color-panel: #0a101d;
+  --color-surface: #0d1526;
+  --color-edge: #1c2a44;
+  --color-neon: #22d3ee;
+  --color-mint: #34d399;
+  --color-amber: #fbbf24;
+  --color-danger: #fb7185;
+  --color-fog: #7d8ba6;
+  --color-ice: #e6edf7;
+}
+
+@theme inline {
+  --font-sans: var(--font-display);
+  --font-mono: var(--font-mono-next);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--color-void);
+  background-image:
+    radial-gradient(
+      900px 500px at 75% -10%,
+      rgba(34, 211, 238, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 400px at -10% 110%,
+      rgba(52, 211, 153, 0.08),
+      transparent 60%
+    ),
+    linear-gradient(
+      rgba(28, 42, 68, 0.35) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(28, 42, 68, 0.35) 1px,
+      transparent 1px
+    );
+  background-size:
+    100% 100%,
+    100% 100%,
+    40px 40px,
+    40px 40px;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.3);
+  color: var(--color-ice);
+}
+
+@keyframes taptalk-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes taptalk-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-7px);
+  }
+  75% {
+    transform: translateX(7px);
+  }
+}
+
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-pop {
+  animation: taptalk-pop 0.5s ease;
+}
+
+.animate-shake {
+  animation: taptalk-shake 0.4s ease;
+}
+
+.animate-blink {
+  animation: cursor-blink 1.1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
