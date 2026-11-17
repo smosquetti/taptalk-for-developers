@@ -1,12 +1,15 @@
 package dev.taptalk.app
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import android.view.KeyEvent
+import android.widget.FrameLayout
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -20,6 +23,8 @@ import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceResponse
 import androidx.webkit.WebViewClientCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 
 private const val TAG = "TapTalk"
@@ -88,6 +93,7 @@ private const val SPEECH_SHIM = """
  */
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var container: FrameLayout
     private lateinit var webView: WebView
     private lateinit var tts: TextToSpeech
     private lateinit var bridge: TtsBridge
@@ -213,7 +219,28 @@ class MainActivity : AppCompatActivity() {
 
 
         webView.addJavascriptInterface(bridge, BRIDGE_NAME)
-        setContentView(webView)
+
+        // The padding must live on a container, NOT on the WebView:
+        // Chromium renders the web content across the WebView's full
+        // bounds and ignores the WebView's own padding — verified on
+        // device (setPadding on the WebView had no visual effect).
+        // The background matches the web app's page color (#05070d) so
+        // the padded strips blend into the page.
+        container = FrameLayout(this)
+        container.setBackgroundColor(0xFF05070D.toInt())
+        container.addView(
+            webView,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT,
+            ),
+        )
+        setContentView(container)
+
+        // Targeting API 35+ enforces edge-to-edge: the page is drawn
+        // behind the status bar (including the camera cutout), so the
+        // container is padded below them.
+        applySystemBarInsets()
 
         webView.loadUrl(HOME_URL)
     }
@@ -233,6 +260,50 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) applySystemBarInsets()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        applySystemBarInsets()
+    }
+
+    /**
+     * Targeting API 35+ enforces edge-to-edge: the page is drawn behind
+     * the status bar (and the camera cutout), so the container around
+     * the WebView is padded below them. Below API 35 the system already
+     * lays the content out under the bars, so no padding is needed.
+     * Values are logged under tag "TapTalk".
+     */
+    private fun applySystemBarInsets() {
+        if (Build.VERSION.SDK_INT < 35) return
+
+        ViewCompat.setOnApplyWindowInsetsListener(container) { _, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or
+                    WindowInsetsCompat.Type.displayCutout()
+            )
+            Log.d(
+                TAG,
+                "windowInsets.getInsets(systemBars|displayCutout): " +
+                    "top=${bars.top} left=${bars.left} " +
+                    "right=${bars.right} bottom=${bars.bottom}"
+            )
+
+            container.setPadding(0, bars.top, 0, bars.bottom)
+            Log.d(
+                TAG,
+                "container padding set to live insets: " +
+                    "top=${bars.top} bottom=${bars.bottom}"
+            )
+
+            // Return CONSUMED so child views don't double-apply the padding
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     override fun onPause() {
