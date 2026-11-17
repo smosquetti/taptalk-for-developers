@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { WordCard } from "@/lib/vocabulary";
 import { speak } from "@/lib/speech";
 
@@ -22,9 +22,19 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const play = (text: string) => {
-    if (soundOn) speak(text);
+  const [lastPlayed, setLastPlayed] = useState<"word" | "example" | null>(null);
+
+  const play = (kind: "word" | "example") => {
+    setLastPlayed(kind);
+    if (soundOn) speak(kind === "word" ? card.german : card.exampleDe);
   };
+
+  const playButtonClass = (kind: "word" | "example") =>
+    `flex items-center justify-center gap-2 rounded-lg border px-4 py-3 text-sm font-semibold transition active:scale-[0.98] ${
+      lastPlayed === kind
+        ? "border-neon/80 bg-surface text-neon shadow-[0_0_14px_rgba(34,211,238,0.25)]"
+        : "border-edge bg-surface text-ice hover:border-neon/60"
+    }`;
 
   return (
     <div
@@ -86,15 +96,17 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
           <div className="grid grid-cols-2 gap-3 pt-1">
             <button
               type="button"
-              onClick={() => play(card.german)}
-              className="flex items-center justify-center gap-2 rounded-lg border border-neon/60 bg-surface px-4 py-3 text-sm font-semibold text-neon transition hover:bg-void/60 active:scale-[0.98]"
+              onClick={() => play("word")}
+              aria-pressed={lastPlayed === "word"}
+              className={playButtonClass("word")}
             >
               <span aria-hidden>🔊</span> Word
             </button>
             <button
               type="button"
-              onClick={() => play(card.exampleDe)}
-              className="flex items-center justify-center gap-2 rounded-lg border border-edge bg-surface px-4 py-3 text-sm font-semibold text-ice transition hover:border-neon/60 active:scale-[0.98]"
+              onClick={() => play("example")}
+              aria-pressed={lastPlayed === "example"}
+              className={playButtonClass("example")}
             >
               <span aria-hidden>🔊</span> Example
             </button>

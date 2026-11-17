@@ -45,7 +45,7 @@ export default function Header() {
           <TerminalMark />
           <span className="flex items-center gap-2">
             TapTalk
-            <span className="rounded border border-neon/50 bg-surface px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-neon">
+            <span className="hidden rounded border border-neon/50 bg-surface px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-neon sm:inline-flex">
               DE · DEV
             </span>
           </span>

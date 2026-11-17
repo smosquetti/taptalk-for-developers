@@ -95,7 +95,7 @@ export default function BoardPage() {
             active={category}
             onSelect={setCategory}
           />
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {visible.map((card) => (
               <Card key={card.id} card={card} onPick={pick} />
             ))}

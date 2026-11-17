@@ -23,6 +23,10 @@ html {
 }
 
 body {
+  /* Long German compound words must wrap inside cards, the detail
+     modal and quiz options instead of overflowing them. Inherited by
+     every element on the page. */
+  overflow-wrap: break-word;
   background-color: var(--color-void);
   background-image:
     radial-gradient(
