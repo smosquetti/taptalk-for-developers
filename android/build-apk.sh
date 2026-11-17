@@ -24,9 +24,10 @@ mkdir -p "$ASSETS_WEBAPP"
 cp -r "$ROOT/out/." "$ASSETS_WEBAPP/"
 du -sh "$ASSETS_WEBAPP" | sed 's/^/    /'
 
-# The WebView loads the app from file:///android_asset/webapp/, so the
-# static export's root-absolute references must become relative ones.
-echo "==> [3/5] Rewriting absolute URLs to relative (file:// compatible)"
+# The WebView serves the app from https://appassets.taptalk.local/webapp/,
+# so the static export's root-absolute references must become relative
+# ones (they have to resolve under the /webapp/ origin path).
+echo "==> [3/5] Rewriting absolute URLs to relative (offline origin compatible)"
 # HTML pages: asset refs, favicon, nav anchors. The bare home link only
 # occurs as the full attribute href="/".
 sed -i \

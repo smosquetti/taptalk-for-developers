@@ -64,27 +64,35 @@ installed voices).
 
 ## Android APK (100% offline, on-device)
 
-The app can be packaged as a native APK: a Kotlin/Android shell
-(`android/`) wraps the statically exported web app in a WebView and
-bridges `speechSynthesis` to the device's native `TextToSpeech`, so
-the German audio works with the phone's German voice.
+The repo also builds a native APK: a Kotlin/Android shell (`android/`)
+wraps the statically exported web app in a WebView. The web app is
+bundled into the APK under `assets/webapp/` and served over a private
+`https://appassets.taptalk.local` origin with
+`androidx.webkit.WebViewAssetLoader`, so the page — including its
+`fetch()` of `vocabulary.json` — behaves like a normal web page while
+every request is answered locally from the APK (Chromium's `fetch()`
+refuses `file://` URLs, so plain asset loading does not work).
+`window.speechSynthesis` is bridged to the device's native
+`TextToSpeech`, so the German audio uses the phone's German voice.
 
 - **No permissions at all** — the manifest declares none. There is no
-  INTERNET permission, and every request to a non-local origin is
+  INTERNET permission, and every navigation off the asset host is
   blocked, so the app can never touch the network.
-- Everything (web app, fonts, vocabulary) is bundled inside the APK
-  under `assets/webapp/` and served from a local origin.
+- Everything (web app, fonts, vocabulary) is bundled inside the APK —
+  nothing is ever downloaded.
 - The home/back buttons, sound toggle (persisted via DOM storage)
   and audio all behave like a native app.
 
 ### Build
 
 ```bash
-npm run build:apk
+npm run build:apk            # = bash android/build-apk.sh
 ```
 
-This runs `next build` (static export), copies `out/` into the Android
-project, and runs `./gradlew assembleDebug`. The APK lands in
+Five steps: `next build` (static export) → copy `out/` into
+`app/src/main/assets/webapp/` → rewrite the static export's
+root-absolute URLs to relative ones (they must resolve under the
+`/webapp/` origin path) → `./gradlew assembleDebug`. The APK lands in
 `android/app/build/outputs/apk/debug/app-debug.apk`.
 
 Prerequisites:
@@ -146,6 +154,9 @@ in `src/lib/vocabulary.ts`.
 ## Project structure
 
 ```
+android/
+  build-apk.sh             # static export → assets/webapp → debug APK
+  app/                     # Kotlin WebView shell (TTS bridge, offline)
 public/
   vocabulary.json          # the 200-word list (de/en + examples)
 material/
