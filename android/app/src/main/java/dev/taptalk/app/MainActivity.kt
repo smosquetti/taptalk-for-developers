@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.FrameLayout
@@ -112,12 +111,10 @@ class MainActivity : AppCompatActivity() {
                 Log.w(TAG, "TextToSpeech failed to initialize (status=$status)")
             }
         }
-        tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) = Unit
-            override fun onDone(utteranceId: String?) = syncSpeakingState()
-            override fun onError(utteranceId: String?) = syncSpeakingState()
-        })
         bridge.attach(tts)
+        // The bridge reports end-of-utterance (watchdog-based, see TtsBridge);
+        // clear the web `speaking` flag so the play-button outline lifts.
+        bridge.onUtteranceEnd = { syncSpeakingState() }
 
         webView = WebView(this)
         // Chromium's fetch() refuses file:// URLs even with
