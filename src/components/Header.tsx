@@ -7,6 +7,7 @@ import { useSound } from "@/components/SoundContext";
 const NAV = [
   { href: "/", label: "Board" },
   { href: "/quiz", label: "Quiz" },
+  { href: "/speak-quiz", label: "Speak" },
 ] as const;
 
 function TerminalMark() {
@@ -37,18 +38,10 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-edge bg-void/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3">
         <Link
-          href="/"
-          className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-ice"
-        >
+          href="/" className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-ice">
           <TerminalMark />
-          <span className="flex items-center gap-2">
-            TapTalk
-            <span className="hidden rounded border border-neon/50 bg-surface px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-neon sm:inline-flex">
-              DE · DEV
-            </span>
-          </span>
         </Link>
 
         <nav className="flex items-center gap-2" aria-label="Main">

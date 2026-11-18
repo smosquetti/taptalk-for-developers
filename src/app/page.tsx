@@ -106,7 +106,7 @@ export default function BoardPage() {
       <div>
         <h1 className="flex flex-wrap items-baseline gap-x-2 font-mono text-2xl font-bold text-ice sm:text-3xl">
           <span className="text-neon">~/</span>
-          <span>taptalk</span>
+          <span>TapTalk</span>
           <span
             aria-hidden
             className="inline-block h-6 w-3 bg-neon align-[-0.1em] animate-blink"

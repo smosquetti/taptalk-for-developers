@@ -62,6 +62,28 @@ npm start
   A wrong answer un-hides the involved words (the target and the picked
   dummy), so they come back to the board for more practice.
 
+### Speak quiz (`/speak-quiz`)
+
+A speaking drill: the app speaks the **full phrase — article and word**
+(„der Computer"), and the device's speech recognizer checks what you
+actually said.
+
+- **Full-phrase recognition:** you must get the *article* and the *word*
+  right (word order included). After each attempt the phrase is colored
+  per token: green = spoken correctly, red = wrong or missing — so you
+  see exactly which part failed (e.g. article red + word green).
+- **Hidden articles:** in about a third of the rounds the article is
+  hidden in the text (a „···" placeholder). The TTS still speaks it, and
+  you still have to say it — the review reveals the article in its own
+  red/green color.
+- **3 tries per phrase**, 8 rounds. A phrase you fail is spoken as a
+  model phrase and comes back to the board (hidden cards included).
+- In the APK the recognition uses `android.speech.SpeechRecognizer`
+  (de-DE) through a `window.taptalkRecognizer` bridge
+  (`SpeechRecognitionBridge.kt`); in a plain browser it falls back to
+  `webkitSpeechRecognition`. The app requests **microphone access** on
+  first use.
+
 ### Audio
 
 Audio is the browser's built-in Web Speech API (`speechSynthesis`) —
@@ -84,9 +106,14 @@ refuses `file://` URLs, so plain asset loading does not work).
 `window.speechSynthesis` is bridged to the device's native
 `TextToSpeech`, so the German audio uses the phone's German voice.
 
-- **No permissions at all** — the manifest declares none. There is no
-  INTERNET permission, and every navigation off the asset host is
-  blocked, so the app can never touch the network.
+- **One permission: `RECORD_AUDIO`** — needed by the Speak quiz
+  (`android.speech.SpeechRecognizer`), requested at runtime on first
+  use. There is no INTERNET permission, and every navigation off the
+  asset host is blocked, so the app itself can never touch the network.
+  (Caveat: the system speech-recognition engine may use the network or
+  on-device language data depending on the device/OS — that runs
+  outside the app, and some devices have no recognizer at all; the
+  Speak quiz then shows a notice and stays disabled.)
 - Everything (web app, fonts, vocabulary) is bundled inside the APK —
   nothing is ever downloaded.
 - The home/back buttons, sound toggle (persisted via DOM storage)
@@ -165,7 +192,8 @@ in `src/lib/vocabulary.ts`.
 ```
 android/
   build-apk.sh             # static export → assets/webapp → debug APK
-  app/                     # Kotlin WebView shell (TTS bridge, offline)
+  app/                     # Kotlin WebView shell (TTS + speech
+                           # recognition bridges, offline)
 public/
   vocabulary.json          # the 200-word list (de/en + examples)
 material/
@@ -175,6 +203,7 @@ src/
     layout.tsx             # shell: header, sound provider, footer
     page.tsx               # word board
     quiz/page.tsx          # quiz (listen + read modes)
+    speak-quiz/page.tsx    # speak quiz (full-phrase recognition)
     globals.css            # high-tech theme + animations
   components/
     Card.tsx               # tappable term card
@@ -184,6 +213,9 @@ src/
     SoundContext.tsx       # sound on/off, persisted
   lib/
     speech.ts              # Web Speech API helpers (de-DE)
+    recognition.ts         # recognition plumbing (APK bridge +
+                           # webkitSpeechRecognition fallback)
+    speakMatch.ts          # token-level phrase matching for the review
     vocabulary.ts          # types, 17 categories, JSON loader
 ```
 

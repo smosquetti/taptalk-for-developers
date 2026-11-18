@@ -2,11 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
-        No permissions at all: the WebView loads the app from
-        file:///android_asset/webapp (its built-in asset provider — no
-        network stack involved), and TTS uses the on-device engine.
-        The app runs 100% offline.
+        The only permission: RECORD_AUDIO, needed by the Speak quiz, which
+        uses the device's SpeechRecognizer (de-DE). It is requested at
+        runtime on first use. Everything else — WebView, TTS, bundled
+        assets — is local; the app never touches the network itself.
     -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!--
+        Required when targeting Android 11 (API 30)+: without this
+        <queries> entry the app cannot resolve the system speech
+        recognition service, so createSpeechRecognizer would fail.
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.RECOGNIZE_SPEECH" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="false"

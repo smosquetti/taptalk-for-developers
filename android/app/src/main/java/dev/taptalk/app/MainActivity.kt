@@ -1,5 +1,6 @@
 package dev.taptalk.app
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.Bitmap
@@ -13,6 +14,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.webkit.WebViewAssetLoader
 import java.io.File
@@ -28,6 +30,7 @@ import androidx.core.view.WindowInsetsCompat
 
 private const val TAG = "TapTalk"
 private const val BRIDGE_NAME = "taptalkNative"
+private const val RECOGNITION_BRIDGE_NAME = "taptalkRecognizer"
 
 // The statically exported web app is bundled into the APK under
 // assets/webapp and served over a private https:// origin with
@@ -84,9 +87,12 @@ private const val SPEECH_SHIM = """
  * - Serves the app from assets/webapp over https://appassets.taptalk.local
  *   via WebViewAssetLoader, so the page — including fetch() — runs like a
  *   normal web page while every request is answered locally from the APK:
- *   100% offline, zero permissions.
+ *   100% offline; the only permission is RECORD_AUDIO (Speak quiz),
+ *   requested at runtime on first use.
  * - Bridges window.speechSynthesis to the device's native TextToSpeech
  *   so the German audio feature works inside the APK.
+ * - Exposes window.taptalkRecognizer (SpeechRecognitionBridge) so the
+ *   Speak quiz can use the device's SpeechRecognizer (de-DE).
  * - Blocks any navigation off the private asset host as a hard guarantee
  *   that nothing ever touches the network.
  */
@@ -96,6 +102,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var tts: TextToSpeech
     private lateinit var bridge: TtsBridge
+    private lateinit var recognitionBridge: SpeechRecognitionBridge
+
+    // Must be created on the Activity itself (registerForActivityResult is
+    // a ComponentActivity extension); the recognition bridge only launches it.
+    private val micPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions(),
+    ) { granted ->
+        Log.d(
+            TAG,
+            "mic permission granted=${granted[Manifest.permission.RECORD_AUDIO]}",
+        )
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -216,6 +234,9 @@ class MainActivity : AppCompatActivity() {
 
 
         webView.addJavascriptInterface(bridge, BRIDGE_NAME)
+        recognitionBridge = SpeechRecognitionBridge(this, micPermissionLauncher)
+        recognitionBridge.attach(webView)
+        webView.addJavascriptInterface(recognitionBridge, RECOGNITION_BRIDGE_NAME)
 
         // The padding must live on a container, NOT on the WebView:
         // Chromium renders the web content across the WebView's full
@@ -306,11 +327,13 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         tts.stop()
+        recognitionBridge.stopListening()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         tts.stop()
         tts.shutdown()
+        recognitionBridge.release()
     }
 }
