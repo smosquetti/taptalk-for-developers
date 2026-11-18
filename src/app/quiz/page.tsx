@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { CategoryId, WordCard } from "@/lib/vocabulary";
 import { CATEGORIES, loadVocabulary, shuffle } from "@/lib/vocabulary";
 import { loadCardState, saveCardState, type CardState } from "@/lib/cardState";
-import { speak, stopSpeaking } from "@/lib/speech";
+import { speak, speaking, stopSpeaking } from "@/lib/speech";
 import CategoryBar from "@/components/CategoryBar";
 import { useSound } from "@/components/SoundContext";
 
@@ -17,6 +17,8 @@ type Question = {
 };
 
 const ROUNDS = 8;
+const CORRECT_FEEDBACK_MS = 1400; // minimum wait for the green glow before advancing
+const MAX_TTS_WAIT_MS = 15000; // cap, in case the speaking flag ever gets stuck
 
 export default function QuizPage() {
   const { on: soundOn } = useSound();
@@ -99,17 +101,32 @@ export default function QuizPage() {
         setLocked(true);
         if (soundOn) speak(`Richtig! ${question.target.german}.`);
         if (!hadMiss) setFirstTryHits((h) => h + 1);
-        timerRef.current = setTimeout(() => {
-          setCorrectId(null);
-          setWrongId(null);
-          setLocked(false);
-          if (round + 1 >= questions.length) {
-            setPhase("done");
+        // Wait for the "Richtig! …" TTS to finish before advancing —
+        // otherwise the next word's audio (listen-mode auto-speak, or
+        // the play button) cancels it mid-utterance. Waits for the green
+        // glow first, then polls speaking() (the app-wide end-of-speech
+        // signal; the APK's TTS bridge never delivers onDone).
+        const started = Date.now();
+        const step = () => {
+          const elapsed = Date.now() - started;
+          if (
+            elapsed >= CORRECT_FEEDBACK_MS &&
+            (elapsed >= MAX_TTS_WAIT_MS || !speaking())
+          ) {
+            setCorrectId(null);
+            setWrongId(null);
+            setLocked(false);
+            if (round + 1 >= questions.length) {
+              setPhase("done");
+            } else {
+              setRound((r) => r + 1);
+              setHadMiss(false);
+            }
           } else {
-            setRound((r) => r + 1);
-            setHadMiss(false);
+            timerRef.current = setTimeout(step, 150);
           }
-        }, 1400);
+        };
+        step();
       } else {
         setHadMiss(true);
         setWrongId(option.id);

@@ -53,8 +53,9 @@ npm start
   meaning out of four.
 - Choose a category to focus a topic, or "all" for a mixed drill.
 - Correct answers glow green and are confirmed in German
-  ("Richtig! …"); wrong answers shake gently and replay the correct
-  term — no penalty, just feedback.
+  ("Richtig! …") — the app waits for that audio to finish before
+  moving to the next word, so it is never cut off. Wrong answers shake
+  gently and replay the correct term — no penalty, just feedback.
 - After 8 rounds a results screen shows how many you got on the first
   try.
 - **Hidden cards:** words hidden on the board still appear in the quiz.
