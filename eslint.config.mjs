@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated copies of the web app inside the Android shell:
+    "android/**",
   ]),
 ]);
 

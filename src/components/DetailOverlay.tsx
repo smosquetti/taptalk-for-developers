@@ -3,14 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import type { WordCard } from "@/lib/vocabulary";
 import { speak, speaking } from "@/lib/speech";
+import { HIDE_OPTIONS } from "@/lib/cardState";
 
 type Props = {
   card: WordCard;
   soundOn: boolean;
   onClose: () => void;
+  onHide: (ms: number) => void;
 };
 
-export default function DetailOverlay({ card, soundOn, onClose }: Props) {
+export default function DetailOverlay({ card, soundOn, onClose, onHide }: Props) {
   const [article, ...rest] = card.german.split(" ");
   const restJoined = rest.join(" ");
 
@@ -25,16 +27,12 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
   // Which button started the current utterance, if any. Kept in a ref so
   // the polling interval always reads the latest value.
   const activeKindRef = useRef<"word" | "example" | null>(null);
-  const [speakingKind, setSpeakingKind] = useState<"word" | "example" | null>(null);
-
   // Tapping a card speaks the German word before this modal mounts, so if
-  // TTS is already mid-utterance when we open, highlight the Word button.
-  useEffect(() => {
-    if (speaking()) {
-      activeKindRef.current = "word";
-      setSpeakingKind("word");
-    }
-  }, []);
+  // TTS is already mid-utterance when we open, start with the Word button
+  // highlighted; the polling interval below keeps it in sync.
+  const [speakingKind, setSpeakingKind] = useState<"word" | "example" | null>(
+    () => (speaking() ? "word" : null),
+  );
 
   // The native TTS bridge clears `speechSynthesis.speaking` when an
   // utterance finishes, so poll that flag: the button that started the
@@ -86,7 +84,7 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
         ✕
       </button>
 
-      <div className="w-full max-w-md overflow-hidden rounded-2xl border border-edge bg-panel shadow-[0_0_40px_rgba(34,211,238,0.15)]">
+      <div className="flex max-h-[85vh] w-full max-w-md flex-col overflow-hidden rounded-2xl border border-edge bg-panel shadow-[0_0_40px_rgba(34,211,238,0.15)]">
         <div className="flex items-center gap-2 border-b border-edge bg-surface px-4 py-3">
           <span aria-hidden className="flex gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-danger/70" />
@@ -98,7 +96,7 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
           </span>
         </div>
 
-        <div className="space-y-4 p-6">
+        <div className="space-y-4 overflow-y-auto p-6">
           <div>
             <h2
               lang="de"
@@ -141,6 +139,32 @@ export default function DetailOverlay({ card, soundOn, onClose }: Props) {
             >
               <span aria-hidden>🔊</span> Example
             </button>
+          </div>
+
+          <div className="rounded-lg border border-edge bg-void/60 p-4">
+            <p className="font-mono text-xs text-fog">
+              <span className="text-mint">$</span> show again
+            </p>
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {HIDE_OPTIONS.map((opt) => (
+                <button
+                  key={opt.label}
+                  type="button"
+                  onClick={() => onHide(opt.ms)}
+                  aria-label={`Hide ${card.german} from the board ${opt.label}`}
+                  className={`rounded-lg border px-2 py-2.5 font-mono text-xs font-semibold transition active:scale-[0.98] ${
+                    opt.ms === 0
+                      ? "border-danger/50 bg-surface text-fog hover:border-danger/80 hover:text-ice"
+                      : "border-edge bg-surface text-fog hover:border-amber/70 hover:text-ice"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            <p className="mt-2 font-mono text-[11px] leading-relaxed text-fog">
+              The card leaves the board — another takes its place.
+            </p>
           </div>
         </div>
       </div>

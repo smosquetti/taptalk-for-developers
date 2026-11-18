@@ -30,13 +30,18 @@ npm start
 
 ### Word board (`/`)
 
-- A grid of cards, one per term, across 17 categories (hardware,
-  fundamentals, control flow, OOP, web & DB, DevOps, testing, AI/ML,
-  …). Filter with the category bar.
-- Tapping a card speaks the German term immediately and opens a
+- A board of **20 random cards**, reshuffled on every app launch.
+  Tapping a card speaks the German term immediately and opens a
   terminal-style detail window: the word with its article highlighted,
   the English meaning, and a German example sentence with its
   translation — plus "Word" / "Example" buttons to replay the audio.
+- **Hiding cards:** the detail window offers "never / 1 day /
+  1 week / 1 month" hides. A hidden card leaves the board
+  immediately — another card takes its place — and temporary hides
+  expire on their own. The board lists the currently hidden cards,
+  where each can be restored. Card state is stored in
+  `localStorage` (in the APK that is the app's private storage —
+  same durability as native SharedPreferences, so no bridge needed).
 - The sound toggle in the header turns audio off/on (text stays
   available either way). The preference is saved in the browser.
 
@@ -52,6 +57,9 @@ npm start
   term — no penalty, just feedback.
 - After 8 rounds a results screen shows how many you got on the first
   try.
+- **Hidden cards:** words hidden on the board still appear in the quiz.
+  A wrong answer un-hides the involved words (the target and the picked
+  dummy), so they come back to the board for more practice.
 
 ### Audio
 

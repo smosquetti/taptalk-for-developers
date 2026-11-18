@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CategoryId, WordCard } from "@/lib/vocabulary";
 import { CATEGORIES, loadVocabulary, shuffle } from "@/lib/vocabulary";
+import { loadCardState, saveCardState, type CardState } from "@/lib/cardState";
 import { speak, stopSpeaking } from "@/lib/speech";
 import CategoryBar from "@/components/CategoryBar";
 import { useSound } from "@/components/SoundContext";
@@ -32,6 +33,9 @@ export default function QuizPage() {
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Board card state at quiz start: hidden cards still appear in the quiz,
+  // and a wrong answer un-hides the involved words (target and picked dummy).
+  const hiddenRef = useRef<CardState>({});
 
   useEffect(() => {
     return () => {
@@ -54,6 +58,7 @@ export default function QuizPage() {
     setError(null);
     try {
       const all = await loadVocabulary();
+      hiddenRef.current = loadCardState();
       const source =
         cat === "all" ? all : all.filter((c) => c.category === cat);
       if (source.length < 4) {
@@ -109,6 +114,16 @@ export default function QuizPage() {
         setHadMiss(true);
         setWrongId(option.id);
         if (soundOn) speak(question.target.german);
+        // A wrong answer proves the involved words aren't learned yet:
+        // the target (not identified) and the picked dummy (confused with
+        // it) both come back to the board if they were hidden.
+        const involved = [question.target.id, option.id];
+        if (involved.some((id) => id in hiddenRef.current)) {
+          const next = { ...hiddenRef.current };
+          for (const id of involved) delete next[id];
+          hiddenRef.current = next;
+          saveCardState(next);
+        }
         timerRef.current = setTimeout(() => setWrongId(null), 450);
       }
     },
@@ -135,6 +150,11 @@ export default function QuizPage() {
             </h1>
             <p className="mt-2 text-base text-fog">
               Pick a mode, choose a category, then train.
+            </p>
+            <p className="mt-3 font-mono text-xs text-fog">
+              <span className="text-mint">{"//"}</span> hidden board cards
+              appear here too — a wrong answer brings the involved words
+              back to the board.
             </p>
 
             <div className="mt-6 grid grid-cols-2 gap-3">
