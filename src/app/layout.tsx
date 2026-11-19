@@ -17,7 +17,7 @@ const mono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TapTalk — German for Developers",
   description:
-    "Learn German for software developers: 200 terms with articles, example sentences, and browser audio. Tap a card to hear it; quiz yourself in listen or read mode.",
+    "Learn German for software developers: 600 terms with articles, example sentences, and browser audio. Tap a card to hear it; quiz yourself in listen or read mode.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <footer className="pb-8 text-center font-mono text-xs text-fog">
-            TapTalk · German for software developers · 200 terms · Web Speech
+            TapTalk · German for software developers · 600 terms · Web Speech
             API audio
           </footer>
         </SoundProvider>

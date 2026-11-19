@@ -2,8 +2,7 @@
 
 A German vocabulary learning app for software developers. Tap a card to see
 and hear a German dev term — article, example sentence, English
-translation — then drill it in a quiz. Built around the 200-word list from
-`material/200_german_words_software_engineering.pdf`.
+translation — then drill it in a quiz.
 
 Dark, high-tech terminal aesthetic: neon-on-void palette, monospace type,
 terminal window chrome, blinking cursor.
@@ -155,7 +154,7 @@ sign it before distributing).
 ## Vocabulary data (how to add words)
 
 All vocabulary lives in **`public/vocabulary.json`** — a JSON array of
-200 objects:
+600 objects:
 
 ```json
 [
@@ -195,9 +194,7 @@ android/
   app/                     # Kotlin WebView shell (TTS + speech
                            # recognition bridges, offline)
 public/
-  vocabulary.json          # the 200-word list (de/en + examples)
-material/
-  200_german_words_software_engineering.pdf   # source list
+  vocabulary.json          # the 600-word list (de/en + examples)
 src/
   app/
     layout.tsx             # shell: header, sound provider, footer

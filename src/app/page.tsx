@@ -113,7 +113,7 @@ export default function BoardPage() {
           />
         </h1>
         <p className="mt-2 font-mono text-sm text-fog">
-          20 random cards out of 200 — a fresh board every launch. Tap a card
+          20 random cards out of 600 — a fresh board every launch. Tap a card
           to see and hear the term; hide the ones you already know.
         </p>
       </div>
