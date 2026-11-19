@@ -32,9 +32,37 @@ function TerminalMark() {
   );
 }
 
+// Compare on the page name: the last path segment, minus a trailing ".html".
+// The APK build (android/build-apk.sh) rewrites the nav hrefs to relative
+// files — "/quiz" -> "quiz.html", href:"/" -> "index.html" — so at runtime
+// the NAV hrefs differ from the dev-server ones. The name is identical in
+// every form: /quiz, quiz.html and /webapp/quiz.html all give "quiz".
+function pageName(value: string): string {
+  const segment = value.split("/").filter(Boolean).pop() ?? "";
+  return segment.endsWith(".html") ? segment.slice(0, -5) : segment;
+}
+
+function isActive(
+  item: (typeof NAV)[number],
+  path: string,
+): boolean {
+  return pageName(item.href) === pageName(path);
+}
+
 export default function Header() {
-  const pathname = usePathname();
+  const routerPath = usePathname();
   const { on, toggle } = useSound();
+  // In the APK every page is a full document load at
+  // https://appassets.taptalk.local/webapp/<name>.html. usePathname() is
+  // derived from the router state and settles to the wrong value right after
+  // a fresh top-level page load (the Speak pill would flash on then off), so
+  // on the client read the browser's real path — the ground truth for which
+  // page is open — and only fall back to usePathname() on the server, where
+  // window is unavailable. The name check below maps both the baked route
+  // (/speak-quiz) and the real URL (/webapp/speak-quiz.html) to the same
+  // active styling, so the client's first render matches the server HTML.
+  const currentPath =
+    typeof window !== "undefined" ? window.location.pathname : routerPath;
 
   return (
     <header className="sticky top-0 z-30 border-b border-edge bg-void/90 backdrop-blur">
@@ -46,17 +74,7 @@ export default function Header() {
 
         <nav className="flex items-center gap-2" aria-label="Main">
           {NAV.map((item) => {
-            // In the APK every page is a full document load, so the real
-            // pathname is e.g. /webapp/speak-quiz.html while the pre-rendered
-            // HTML was baked with /speak-quiz — match on the last segment in
-            // both forms (and keep the plain-prefix check for the browser).
-            const segment = pathname.split("/").filter(Boolean).pop() ?? "";
-            const active =
-              item.href === "/"
-                ? pathname === "/" || segment === "index.html"
-                : segment === item.href.slice(1) ||
-                  segment === `${item.href.slice(1)}.html` ||
-                  pathname.startsWith(item.href);
+            const active = isActive(item, currentPath);
             return (
               <Link
                 key={item.href}

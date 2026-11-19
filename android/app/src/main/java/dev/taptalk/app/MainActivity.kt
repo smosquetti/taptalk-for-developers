@@ -311,19 +311,8 @@ class MainActivity : AppCompatActivity() {
                 WindowInsetsCompat.Type.systemBars() or
                     WindowInsetsCompat.Type.displayCutout()
             )
-            Log.d(
-                TAG,
-                "windowInsets.getInsets(systemBars|displayCutout): " +
-                    "top=${bars.top} left=${bars.left} " +
-                    "right=${bars.right} bottom=${bars.bottom}"
-            )
 
             container.setPadding(0, bars.top, 0, bars.bottom)
-            Log.d(
-                TAG,
-                "container padding set to live insets: " +
-                    "top=${bars.top} bottom=${bars.bottom}"
-            )
 
             // Return CONSUMED so child views don't double-apply the padding
             WindowInsetsCompat.CONSUMED

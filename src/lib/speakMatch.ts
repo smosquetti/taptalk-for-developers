@@ -61,6 +61,7 @@ export function matchPhrase(target: string, heard: string[]): MatchResult {
   const tokens: TokenResult[] = targetTokens.map((raw) => {
     const key = matchKey(raw);
     let found = false;
+    const start = heardIdx;
     while (heardIdx < heardTokens.length) {
       if (matchKey(heardTokens[heardIdx]) === key) {
         found = true;
@@ -69,6 +70,10 @@ export function matchPhrase(target: string, heard: string[]): MatchResult {
       }
       heardIdx++;
     }
+    // A missed token must not consume the rest of the heard list —
+    // otherwise every later target token is unmatchable (wrong article
+    // would turn a correctly spoken word red too).
+    if (!found) heardIdx = start;
     return { text: raw, correct: found };
   });
 

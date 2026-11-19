@@ -497,13 +497,19 @@ function PhraseDisplay({
   const tokens = question.target.german.split(/\s+/).filter(Boolean);
   const heard = feedback?.kind === "heard" ? feedback.match : null;
   const correctAll = feedback?.kind === "correct";
+  // Long German compound words (e.g. "Machbarkeitsstudie") overflow a fixed
+  // size — size the font to the longest word so it fits the card, capped at
+  // text-4xl (2.25rem) so short phrases keep their large size.
+  const longest = tokens.reduce((m, t) => Math.max(m, t.length), 1);
+  const fontSize = `min(2.25rem, calc((100vw - 80px) / (0.62 * ${longest})))`;
 
   return (
     <p
       lang="de"
-      className={`mt-4 flex flex-wrap justify-center gap-x-2 gap-y-1 break-words font-mono text-4xl font-bold ${
+      className={`mt-4 flex flex-wrap justify-center gap-x-2 gap-y-1 font-mono font-bold ${
         correctAll ? "animate-pop" : ""
       }`}
+      style={{ fontSize }}
     >
       {tokens.map((token, i) => {
         const isArticleToken = i === 0 && isArticle(token);
@@ -519,8 +525,10 @@ function PhraseDisplay({
           text = "···";
           cls = "text-fog";
         }
+        // min-w-0 + break-words let an overly long word break inside its
+        // span as a fallback, so it can never spill past the card edges.
         return (
-          <span key={i} className={cls}>
+          <span key={i} className={`min-w-0 break-words ${cls}`}>
             {text}
           </span>
         );
