@@ -75,6 +75,10 @@ export default function SpeakQuizPage() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const listeningRef = useRef(false);
+  // True while a listening session is paused for a "hear again" TTS:
+  // the UI keeps showing "listening", only the recognizer is suspended
+  // (and it resumes automatically when the TTS ends).
+  const recPausedRef = useRef(false);
   // Board card state at quiz start: hidden cards still appear in the quiz,
   // and a failed phrase un-hides its card.
   const hiddenRef = useRef<CardState>({});
@@ -148,6 +152,20 @@ export default function SpeakQuizPage() {
     }
   }
 
+  /** No backend outcome within the window → treat as "didn't catch that". */
+  function armRecTimeout() {
+    recTimeoutRef.current = setTimeout(() => {
+      if (listeningRef.current) {
+        console.warn(
+          "[speak-quiz] no outcome within",
+          RECOGNITION_TIMEOUT_MS,
+          "ms — timeout, code 9",
+        );
+        handleOutcome({ status: "error", code: 9 });
+      }
+    }, RECOGNITION_TIMEOUT_MS);
+  }
+
   /**
    * Starts one listening session (also the retry path — a tap clears the
    * current feedback and begins a fresh attempt; `revealed` persists).
@@ -164,17 +182,7 @@ export default function SpeakQuizPage() {
     setListening(true);
     listeningRef.current = true;
     startRecognition();
-    // No backend outcome within the window → treat as "didn't catch that".
-    recTimeoutRef.current = setTimeout(() => {
-      if (listeningRef.current) {
-        console.warn(
-          "[speak-quiz] no outcome within",
-          RECOGNITION_TIMEOUT_MS,
-          "ms — timeout, code 9",
-        );
-        handleOutcome({ status: "error", code: 9 });
-      }
-    }, RECOGNITION_TIMEOUT_MS);
+    armRecTimeout();
   }
 
   function handleOutcome(o: RecognitionOutcome) {
@@ -278,8 +286,47 @@ export default function SpeakQuizPage() {
     }
   }
 
+  /**
+   * Re-arms a session that hearAgain paused: the UI-level listening state
+   * never changed, so only the backend and the outcome timeout come back
+   * (fresh session number, so results from the paused session are
+   * dropped as stale).
+   */
+  function resumeListening() {
+    if (!recPausedRef.current) return;
+    recPausedRef.current = false;
+    listeningRef.current = true;
+    startRecognition();
+    armRecTimeout();
+  }
+
+  /**
+   * "Hear again." While a listening session is in progress, the
+   * recognizer is paused for the duration of the TTS — an open mic would
+   * pick up the speaker output and the phrase would pass as if the user
+   * said it. It resumes automatically when the TTS ends, so the user
+   * just keeps speaking; hearing the phrase doesn't consume an attempt.
+   */
   const hearAgain = () => {
-    if (question && soundOn) speak(question.target.german);
+    if (!question || !soundOn) return;
+    if (listeningRef.current) {
+      // Suspend the session: the timeout is dropped and any payload
+      // arriving while the mic is closed is ignored ("not listening").
+      listeningRef.current = false;
+      recPausedRef.current = true;
+      stopRecognition();
+      if (recTimeoutRef.current) {
+        clearTimeout(recTimeoutRef.current);
+        recTimeoutRef.current = null;
+      }
+    }
+    speak(question.target.german);
+    if (recPausedRef.current) {
+      // Floor so the browser's speaking flag has time to turn on (the
+      // APK's TTS bridge sets it synchronously, so this is a no-op there)
+      // — without it the resume could race the TTS start.
+      waitThen(resumeListening, 300);
+    }
   };
 
   if (phase === "ready") {
