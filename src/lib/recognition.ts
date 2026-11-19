@@ -30,7 +30,9 @@ declare global {
       startListening: () => void;
       stopListening: () => void;
     };
-    taptalkOnRecognitionResult?: (json: string) => void;
+    taptalkOnRecognitionResult?: (
+      json: string | NativePayload,
+    ) => void;
   }
 }
 
@@ -59,31 +61,60 @@ let lastNativeSession = 0;
 let webkitSession = 0;
 let webkitRecognizer: SpeechRecognitionLike | null = null;
 
+type NativePayload = {
+  status?: string;
+  session?: number;
+  results?: string[];
+  code?: number;
+};
+
 // Native → JS: called by the APK bridge on the WebView's main thread.
 // Registered at module scope so it survives client-side page loads.
 if (typeof window !== "undefined") {
-  window.taptalkOnRecognitionResult = (json: string) => {
+  console.log(
+    "[taptalk-recognition] module init — native bridge:",
+    Boolean(window.taptalkRecognizer),
+  );
+  window.taptalkOnRecognitionResult = (
+    json: string | NativePayload,
+  ): void => {
+    let parsed: NativePayload;
     try {
-      const parsed = JSON.parse(json) as {
-        status?: string;
-        session?: number;
-        results?: string[];
-        code?: number;
-      };
-      if (
-        typeof parsed.session === "number" &&
-        parsed.session <= lastNativeSession
-      ) {
-        return; // stale result from a superseded session
-      }
-      lastNativeSession = parsed.session ?? 0;
-      if (parsed.status === "result") {
-        sink?.({ status: "result", results: parsed.results ?? [] });
-      } else if (parsed.status === "error") {
-        sink?.({ status: "error", code: parsed.code ?? 5 });
-      }
-    } catch {
-      // Malformed payload — ignore.
+      // The bridge sends a JSON *string*; also accept a plain object in
+      // case the native side ever delivers an already-parsed payload.
+      parsed = typeof json === "string" ? JSON.parse(json) : json;
+    } catch (e) {
+      console.warn("[taptalk-recognition] malformed payload:", json, e);
+      return;
+    }
+    console.log(
+      "[taptalk-recognition] native payload:",
+      JSON.stringify(parsed),
+    );
+    // A permission error (code -1) is a control signal, not a result from a
+    // superseded session — the bridge emits it at session 0, before any
+    // real recognition starts, so it must never be dropped as stale.
+    const isPermissionError = parsed.status === "error" && parsed.code === -1;
+    if (
+      !isPermissionError &&
+      typeof parsed.session === "number" &&
+      parsed.session <= lastNativeSession
+    ) {
+      console.log(
+        `[taptalk-recognition] dropped stale session ${parsed.session} (last=${lastNativeSession})`,
+      );
+      return; // stale result from a superseded session
+    }
+    lastNativeSession = parsed.session ?? 0;
+    if (parsed.status === "result") {
+      console.log(
+        "[taptalk-recognition] -> sink result:",
+        JSON.stringify(parsed.results),
+      );
+      sink?.({ status: "result", results: parsed.results ?? [] });
+    } else if (parsed.status === "error") {
+      console.log("[taptalk-recognition] -> sink error code:", parsed.code);
+      sink?.({ status: "error", code: parsed.code ?? 5 });
     }
   };
 }
@@ -129,14 +160,20 @@ function mapWebkitError(error: string): number {
 
 /** Starts a recognition session; ignored when one is already active. */
 export function startRecognition(): void {
-  if (typeof window === "undefined" || active) return;
+  if (typeof window === "undefined") return;
+  if (active) {
+    console.log("[taptalk-recognition] startRecognition ignored — already active");
+    return;
+  }
   active = true;
 
   const native = window.taptalkRecognizer;
   if (native) {
+    console.log("[taptalk-recognition] startListening → native bridge");
     native.startListening();
     return;
   }
+  console.log("[taptalk-recognition] startListening → webkit fallback");
 
   // Typed structurally: lib.dom doesn't declare both globals as
   // constructible, so read them through an explicit cast.
@@ -195,6 +232,7 @@ export function startRecognition(): void {
 /** Stops the in-flight session; stale callbacks are dropped by session. */
 export function stopRecognition(): void {
   if (!active) return;
+  console.log("[taptalk-recognition] stopRecognition");
   active = false;
   const native = typeof window !== "undefined" ? window.taptalkRecognizer : null;
   if (native) {

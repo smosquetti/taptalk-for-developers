@@ -154,6 +154,10 @@ export default function SpeakQuizPage() {
    */
   function startListeningNow() {
     if (!question || locked || listening) return;
+    console.log(
+      "[speak-quiz] tap — starting recognition for:",
+      question.target.german,
+    );
     stopSpeaking(); // TTS and ASR fight over the audio stack
     stopRecognition(); // drop any in-flight session (stale results are ignored)
     setFeedback(null);
@@ -162,12 +166,26 @@ export default function SpeakQuizPage() {
     startRecognition();
     // No backend outcome within the window → treat as "didn't catch that".
     recTimeoutRef.current = setTimeout(() => {
-      if (listeningRef.current) handleOutcome({ status: "error", code: 9 });
+      if (listeningRef.current) {
+        console.warn(
+          "[speak-quiz] no outcome within",
+          RECOGNITION_TIMEOUT_MS,
+          "ms — timeout, code 9",
+        );
+        handleOutcome({ status: "error", code: 9 });
+      }
     }, RECOGNITION_TIMEOUT_MS);
   }
 
   function handleOutcome(o: RecognitionOutcome) {
-    if (!listeningRef.current) return;
+    if (!listeningRef.current) {
+      console.log("[speak-quiz] handleOutcome ignored — not listening");
+      return;
+    }
+    console.log(
+      "[speak-quiz] outcome:",
+      o.status === "error" ? `error code ${o.code}` : JSON.stringify(o.results),
+    );
     listeningRef.current = false;
     setListening(false);
     if (recTimeoutRef.current) {
@@ -179,6 +197,7 @@ export default function SpeakQuizPage() {
 
     if (o.status === "error") {
       const message = ERROR_MESSAGES[o.code] ?? ERROR_MESSAGES[5];
+      console.log("[speak-quiz] error feedback:", message);
       const used = attempts + 1;
       setAttempts(used);
       setFeedback({ kind: "error", message, left: Math.max(0, MAX_ATTEMPTS - used) });
@@ -187,6 +206,9 @@ export default function SpeakQuizPage() {
     }
 
     const match = matchPhrase(q.target.german, o.results);
+    console.log(
+      `[speak-quiz] matchPhrase vs "${q.target.german}" -> ok=${match.ok}`,
+    );
     if (match.ok) {
       if (attempts === 0) setFirstTryHits((h) => h + 1);
       setLocked(true);

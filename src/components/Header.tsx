@@ -46,8 +46,17 @@ export default function Header() {
 
         <nav className="flex items-center gap-2" aria-label="Main">
           {NAV.map((item) => {
+            // In the APK every page is a full document load, so the real
+            // pathname is e.g. /webapp/speak-quiz.html while the pre-rendered
+            // HTML was baked with /speak-quiz — match on the last segment in
+            // both forms (and keep the plain-prefix check for the browser).
+            const segment = pathname.split("/").filter(Boolean).pop() ?? "";
             const active =
-              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              item.href === "/"
+                ? pathname === "/" || segment === "index.html"
+                : segment === item.href.slice(1) ||
+                  segment === `${item.href.slice(1)}.html` ||
+                  pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}

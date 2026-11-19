@@ -218,16 +218,22 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        // 3. Catches CORS errors and unhandled fetch() promise rejections
+        // 3. Catches CORS errors and unhandled fetch() promise rejections.
+        // All JS console levels are mirrored to logcat (tag "TapTalk",
+        // "JS[L/W/E]" prefix) so the Speak-quiz recognition trace from the
+        // page is visible while testing the mic.
         webView.webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-                if (consoleMessage.messageLevel() == ConsoleMessage.MessageLevel.ERROR) {
-                    Log.e(
-                        TAG,
-                        "JS Console Error: ${consoleMessage.message()} " +
-                        "(${consoleMessage.sourceId()}:${consoleMessage.lineNumber()})"
-                    )
+                val level = when (consoleMessage.messageLevel()) {
+                    ConsoleMessage.MessageLevel.ERROR -> "E"
+                    ConsoleMessage.MessageLevel.WARNING -> "W"
+                    else -> "L" // LOG and any other level
                 }
+                Log.d(
+                    TAG,
+                    "JS[$level] ${consoleMessage.message()} " +
+                        "(${consoleMessage.sourceId()}:${consoleMessage.lineNumber()})"
+                )
                 return super.onConsoleMessage(consoleMessage)
             }
         }

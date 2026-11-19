@@ -48,7 +48,14 @@ function matchKey(token: string): string {
  */
 export function matchPhrase(target: string, heard: string[]): MatchResult {
   const targetTokens = target.split(/\s+/).filter(Boolean);
-  const heardTokens = heard.map(normalizeToken).filter(Boolean);
+  // Each heard result is a full phrase — split it into words before
+  // normalizing, otherwise normalizeToken strips the spaces and a
+  // multi-word result collapses into a single unmatchable token
+  // ("die Tabelle" -> "dietetabelle").
+  const heardTokens = heard
+    .flatMap((s) => s.split(/\s+/))
+    .map(normalizeToken)
+    .filter(Boolean);
 
   let heardIdx = 0;
   const tokens: TokenResult[] = targetTokens.map((raw) => {

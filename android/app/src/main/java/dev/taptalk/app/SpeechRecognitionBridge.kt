@@ -63,12 +63,18 @@ class SpeechRecognitionBridge(
 
     @JavascriptInterface
     fun startListening() {
+        Log.d(TAG, "startListening() called from JS")
         main.post {
-            if (active) return@post
+            Log.d(TAG, "on main thread: active=$active")
+            if (active) {
+                Log.w(TAG, "ignored — already active")
+                return@post
+            }
             if (!hasMicPermission()) {
                 // The system dialog is about to appear; tell the web side
                 // now so the UI lifts the listening state instead of
                 // waiting for a result that will never come.
+                Log.w(TAG, "RECORD_AUDIO not granted — launching permission dialog")
                 micPermissionLauncher.launch(arrayOf(Manifest.permission.RECORD_AUDIO))
                 emitError(CODE_NO_PERMISSION)
                 return@post
@@ -76,18 +82,21 @@ class SpeechRecognitionBridge(
             errorEmitted = false
             session += 1
             active = true
+            Log.d(TAG, "starting session $session")
             val rec =
                 ensureRecognizer()
                     ?: run {
                         active = false
+                        Log.e(TAG, "no recognizer — createSpeechRecognizer returned null")
                         emitError(CODE_UNAVAILABLE)
                         return@post
                     }
             try {
+                Log.d(TAG, "calling SpeechRecognizer.startListening(de-DE, FREE_FORM, maxResults=3)")
                 rec.startListening(recognitionIntent())
             } catch (e: Exception) {
                 active = false
-                Log.w(TAG, "startListening failed", e)
+                Log.e(TAG, "startListening threw", e)
                 emitError(
                     if (e is IllegalArgumentException) CODE_UNAVAILABLE else CODE_ENGINE_ERROR,
                 )
@@ -97,8 +106,12 @@ class SpeechRecognitionBridge(
 
     @JavascriptInterface
     fun stopListening() {
+        Log.d(TAG, "stopListening() called")
         main.post {
-            if (!active) return@post
+            if (!active) {
+                Log.d(TAG, "not active — nothing to stop")
+                return@post
+            }
             active = false
             stopRecognizer()
         }
@@ -142,16 +155,21 @@ class SpeechRecognitionBridge(
 
     /** Lazily created once; must be called on the main thread. */
     private fun ensureRecognizer(): SpeechRecognizer? {
-        recognizer?.let { return it }
+        recognizer?.let {
+            Log.d(TAG, "reusing existing recognizer")
+            return it
+        }
+        Log.d(TAG, "creating SpeechRecognizer")
         val created =
             SpeechRecognizer.createSpeechRecognizer(activity)
                 ?: run {
-                    Log.w(TAG, "createSpeechRecognizer returned null")
+                    Log.e(TAG, "createSpeechRecognizer returned null")
                     null
                 }
             ?: return null
         created.setRecognitionListener(listener)
         recognizer = created
+        Log.d(TAG, "SpeechRecognizer created")
         return created
     }
 
@@ -165,33 +183,81 @@ class SpeechRecognitionBridge(
         }
     }
 
-    private val listener = object : RecognitionListener {
-        override fun onReadyForSpeech(params: Bundle?) {}
+    /**
+     * Reads the recognized-match list from a recognition bundle. The AOSP
+     * key is "matches" (RecognizerResult.ALTERNATIVE_MATCHES), but some
+     * recognition services return the text under a different key — this
+     * device uses "results_recognition" (confirmed via logcat). Tries each
+     * known key, type-tolerantly (value may be a StringArrayList, a plain
+     * ArrayList<String>, or a single String).
+     */
+    private fun readMatches(bundle: Bundle?): List<String> {
+        if (bundle == null) return emptyList()
+        for (key in listOf("matches", "results_recognition")) {
+            val raw = bundle.get(key) ?: continue
+            when (raw) {
+                is List<*> -> {
+                    val strings = raw.filterIsInstance<String>()
+                    if (strings.isNotEmpty()) return strings
+                }
+                is Array<*> -> {
+                    val strings = raw.filterIsInstance<String>()
+                    if (strings.isNotEmpty()) return strings
+                }
+                is String -> return listOf(raw)
+            }
+        }
+        return emptyList()
+    }
 
-        override fun onBeginningOfSpeech() {}
+    private val listener = object : RecognitionListener {
+        override fun onReadyForSpeech(params: Bundle?) {
+            Log.d(TAG, "onReadyForSpeech — mic armed, waiting for audio")
+        }
+
+        override fun onBeginningOfSpeech() {
+            Log.d(TAG, "onBeginningOfSpeech — audio level detected, recognizing…")
+        }
 
         override fun onRmsChanged(rms: Float) {}
 
         override fun onBufferReceived(buffer: ByteArray) {}
 
-        override fun onEndOfSpeech() {}
+        override fun onEndOfSpeech() {
+            Log.d(TAG, "onEndOfSpeech — engine done capturing, awaiting result…")
+        }
 
         // New in API 35+: segmentation/session events — no-op for us.
         override fun onEvent(eventType: Int, eventArgs: Bundle?) {}
 
-        override fun onPartialResults(partialResults: Bundle?) {}
+        override fun onPartialResults(partialResults: Bundle?) {
+            Log.d(TAG, "onPartialResults (raw engine output): ${readMatches(partialResults)}")
+        }
 
         override fun onResults(results: Bundle?) {
-            if (!active || errorEmitted) return
+            if (!active || errorEmitted) {
+                Log.w(TAG, "onResults dropped (active=$active errorEmitted=$errorEmitted)")
+                return
+            }
             active = false
-            // "matches" is the RecognizerResult.ALTERNATIVE_MATCHES bundle key
-            // — the class itself is a hidden API, absent from the compile stub.
-            val matches = results?.getStringArrayList("matches") ?: emptyList()
+            // Recognized text: standard AOSP key "matches", or the OEM key
+            // "results_recognition" on this device — readMatches handles both.
+            val matches = readMatches(results)
+            Log.d(
+                TAG,
+                "onResults recognized: $matches (count=${matches.size}) " +
+                    "keys=${results?.keySet()}",
+            )
             emitResults(matches)
         }
 
         override fun onError(errorType: Int) {
-            Log.w(TAG, "recognition error: $errorType")
+            Log.e(
+                TAG,
+                "onError raw=$errorType (AUDIO=1 CLIENT=3 INSUFFICIENT_PERMISSIONS=4 " +
+                    "NETWORK=5 NO_MATCH=6 RECOGNIZER_BUSY=7 SERVER=8 NETWORK_TIMEOUT=9) " +
+                    "-> mapped=${mapErrorCode(errorType)}",
+            )
             emitError(mapErrorCode(errorType))
         }
     }
@@ -228,12 +294,61 @@ class SpeechRecognitionBridge(
                 if (results != null) put("results", JSONArray(results))
                 if (code != null) put("code", code)
             }
-        val wv = webView ?: return
+        Log.d(TAG, "emit payload: $payload")
+        val wv = webView
+        if (wv == null) {
+            Log.e(TAG, "emit dropped — webView not attached")
+            return
+        }
+        // If the JS sink is missing, the delivery below is a no-op and the
+        // web side falls back to its 15 s timeout (code 9) — make that
+        // visible instead of silent.
+        wv.evaluateJavascript("typeof window.taptalkOnRecognitionResult") { result ->
+            if (result == "\"function\"") {
+                Log.d(TAG, "JS sink present — delivering payload")
+            } else {
+                Log.e(TAG, "JS sink MISSING ($result) — payload dropped, web side will time out")
+            }
+        }
+        // Pass the payload as a *quoted* JSON string literal — the JS
+        // handler JSON.parses it, so it must receive a string. Embedding
+        // payload.toString() bare would make JS see an object literal
+        // (JSONObject.wrap() re-parses the JSON and returns it, still
+        // unquoted).
+        val literal = jsonStringLiteral(payload.toString())
         wv.evaluateJavascript(
             "window.taptalkOnRecognitionResult && " +
-                "window.taptalkOnRecognitionResult(${JSONObject.wrap(payload.toString())})",
+                "window.taptalkOnRecognitionResult($literal)",
             null,
         )
+    }
+
+    /**
+     * Quotes + escapes a string as a JSON/JS string literal so it can be
+     * embedded safely in an evaluateJavascript() expression.
+     */
+    private fun jsonStringLiteral(text: String): String {
+        val sb = StringBuilder("\"")
+        for (c in text) {
+            when (c) {
+                '"' -> sb.append("\\\"")
+                '\\' -> sb.append("\\\\")
+                '\n' -> sb.append("\\n")
+                '\r' -> sb.append("\\r")
+                '\t' -> sb.append("\\t")
+                '\u0008' -> sb.append("\\b")
+                '\u000c' -> sb.append("\\f")
+                else -> {
+                    if (c < ' ') {
+                        // C0 control characters: \u00XX
+                        sb.append(String.format("\\u%04x", c.code))
+                    } else {
+                        sb.append(c)
+                    }
+                }
+            }
+        }
+        return sb.append("\"").toString()
     }
 
     companion object {
