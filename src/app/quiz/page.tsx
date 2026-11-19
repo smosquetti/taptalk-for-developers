@@ -264,14 +264,16 @@ export default function QuizPage() {
         <p className="font-mono text-sm text-fog">
           round {round + 1} / {questions.length} · {mode}
         </p>
-        <button
-          type="button"
-          onClick={hearAgain}
-          aria-label="Hear the word again"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-edge bg-panel text-lg transition hover:border-neon/60 active:scale-95"
-        >
-          <span aria-hidden>🔊</span>
-        </button>
+        {mode != "listen" && (
+          <button
+            type="button"
+            onClick={hearAgain}
+            aria-label="Hear the word again"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-edge bg-panel text-lg transition hover:border-neon/60 active:scale-95"
+          >
+            <span aria-hidden>🔊</span>
+          </button>
+        )}
       </div>
 
       {question && (
@@ -328,11 +330,6 @@ export default function QuizPage() {
                     <span lang="de">{option.german}</span>
                   ) : (
                     <span>{option.english}</span>
-                  )}
-                  {isCorrect && (
-                    <span aria-hidden className="mt-1 block text-xl">
-                      ✅
-                    </span>
                   )}
                 </button>
               );
