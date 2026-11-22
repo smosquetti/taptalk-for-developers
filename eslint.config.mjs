@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Generated copies of the web app inside the Android shell:
     "android/**",
+    // Generated copy of the web app for the e2e test server:
+    ".webapp/**",
   ]),
 ]);
 

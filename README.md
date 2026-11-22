@@ -25,6 +25,49 @@ npm run build
 npm start
 ```
 
+## UI tests (Playwright)
+
+The web app runs inside the APK's WebView, so the tests exercise it
+exactly as the APK serves it: a test server
+(`scripts/webapp-test-server.mjs`) serves the statically exported web
+app with its root-absolute URLs rewritten to relative ones — the same
+rewrites `android/build-apk.sh` applies — under `/webapp/`, and every
+page is a full document load, just like in the WebView. The browser
+runs with a Pixel 5 viewport (393 px, touch), and gestures use
+`tap()`.
+
+The specs also install faithful fakes of the native bridges before the
+first page load:
+
+- a `speechSynthesis` whose utterances keep `speaking` true for a
+  configurable time and **never fire onDone** — exactly what the APK's
+  `TextToSpeech` bridge does, and what the app relies on (it polls
+  `speaking` and caps the wait at 15 s).
+- `window.taptalkRecognizer` delivering results through
+  `window.taptalkOnRecognitionResult` as JSON strings with monotonic
+  sessions, as `SpeechRecognitionBridge.kt` does.
+
+```bash
+npm install
+npx playwright install chromium   # first time only
+npm run test:e2e                  # builds the web app once if stale, then runs all specs
+```
+
+Specs live in `e2e/`:
+
+- `board.spec.ts` — board boot, card detail overlay (close via
+  button / Escape / backdrop), hide & restore, sound toggle
+  persistence, vocabulary load errors
+- `quiz.spec.ts` — listen & read rounds, wrong-answer replay and
+  un-hide in localStorage, vocabulary load errors
+- `speak-quiz.spec.ts` — full-phrase recognition, hidden-article
+  reveal styling, permission / 15 s timeout errors, 3-strike
+  un-hide, and the 15 s TTS cap when the bridge never reports
+  end-of-speech
+- `webview.spec.ts` — every page boots from a full-document load,
+  nav links hard-navigate, no request ever leaves the asset origin,
+  no horizontal overflow at phone width
+
 ## How it works
 
 ### Word board (`/`)
@@ -193,6 +236,13 @@ android/
   build-apk.sh             # static export → assets/webapp → debug APK
   app/                     # Kotlin WebView shell (TTS + speech
                            # recognition bridges, offline)
+e2e/
+  fixtures.ts              # WebView test fakes (TTS + recognizer
+                           # bridges) for the Playwright specs
+  board.spec.ts            # board UI tests
+  quiz.spec.ts             # quiz UI tests
+  speak-quiz.spec.ts       # speak-quiz UI tests
+  webview.spec.ts          # WebView-constraint tests (origin, overflow)
 public/
   vocabulary.json          # the 600-word list (de/en + examples)
 src/

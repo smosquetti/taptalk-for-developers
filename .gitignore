@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+# Web app copy for the e2e test server (mirrors the APK asset layout)
+/.webapp/
 
 # next.js
 /.next/
