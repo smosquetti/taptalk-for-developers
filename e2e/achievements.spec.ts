@@ -49,7 +49,10 @@ test.describe("achievements", () => {
     const link = page.getByRole("link", { name: "View all achievements" });
     await expect(link).toHaveAttribute("href", "achievements.html");
     await link.tap();
-    await expect(page.url()).toContain("achievements.html");
+    // The router's RSC fetch gets text/html from the static export and
+    // falls back to a hard browser navigation — the same full-document
+    // load the APK WebView performs.
+    await page.waitForURL(/\/webapp\/achievements\.html/);
 
     await expect(page.getByText("0 pts", { exact: true })).toBeVisible();
     await expect(page.getByText(`0/${TOTAL} unlocked`, { exact: true })).toBeVisible();
@@ -99,14 +102,20 @@ test.describe("achievements", () => {
     // Completed group, highest points first (40 > 20 > 10)…
     expect(idx("Curious Mind")).toBeLessThan(idx("Quiz Debut"));
     expect(idx("Quiz Debut")).toBeLessThan(idx("First Steps"));
-    // …then in progress (Vocabulary Veteran 100 > First Try Club 80 > Regular 50)…
-    expect(idx("First Steps")).toBeLessThan(idx("Vocabulary Veteran"));
+    // …then in progress, by points: boardPick 25 makes Word Hoarder
+    // (25/300, 200 pts) and Vocabulary Veteran (25/100, 100) live, and
+    // quizCompleted 2 makes Quiz Legend (2/30, 120) live too —
+    // 200 > 120 > 100 > 80 (First Try Club 3/25) > 50 (Regular 2/7)…
+    expect(idx("First Steps")).toBeLessThan(idx("Word Hoarder"));
+    expect(idx("Word Hoarder")).toBeLessThan(idx("Quiz Legend"));
+    expect(idx("Quiz Legend")).toBeLessThan(idx("Vocabulary Veteran"));
     expect(idx("Vocabulary Veteran")).toBeLessThan(idx("First Try Club"));
     expect(idx("First Try Club")).toBeLessThan(idx("Regular"));
-    // …then locked (Word Hoarder, 200 pts, tops its group).
-    expect(idx("Regular")).toBeLessThan(idx("Word Hoarder"));
+    // …then locked (Zungengabe, 200 pts, tops its group).
+    expect(idx("Regular")).toBeLessThan(idx("Zungengabe"));
 
     // Per-achievement progress, capped at the target.
+    await expect(page.getByText("25/300", { exact: true })).toBeVisible();
     await expect(page.getByText("25/100", { exact: true })).toBeVisible();
     await expect(page.getByText("3/25", { exact: true })).toBeVisible();
     await expect(page.getByText("2/7", { exact: true })).toBeVisible();

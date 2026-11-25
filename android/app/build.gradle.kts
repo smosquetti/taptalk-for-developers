@@ -12,8 +12,8 @@ android {
         applicationId = "dev.taptalk.app"
         minSdk = 26 // adaptive launcher icon, no legacy PNGs needed
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 110
+        versionName = "1.1.0"
     }
 
     buildTypes {
