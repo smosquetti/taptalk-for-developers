@@ -56,10 +56,10 @@ export default function QuizPage() {
     doneRef.current = true;
     void (async () => {
       const unlocks: Achievement[] = [
-        ...(await recordEvent("quizCompleted")).newUnlocks,
+        ...(await recordEvent(mode === "listen" ? "quizCompletedListen" : "quizCompletedRead")).newUnlocks,
       ];
       if (firstTryHits >= questions.length) {
-        unlocks.push(...(await recordEvent("quizPerfect")).newUnlocks);
+        unlocks.push(...(await recordEvent(mode === "listen" ? "quizPerfectListen" : "quizPerfectRead")).newUnlocks);
       }
       setNewUnlocks(unlocks);
     })();

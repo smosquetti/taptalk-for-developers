@@ -20,13 +20,23 @@
     "target": 10
   },
   {
-    "id": "quiz-debut",
+    "id": "quiz-debut-listen",
     "icon": "🎧",
-    "name": "Quiz Debut",
-    "description": "Complete your first quiz.",
+    "name": "Quiz Debut (Listen)",
+    "description": "Complete your first listen quiz.",
     "points": 20,
     "difficulty": "easy",
-    "event": "quizCompleted",
+    "event": "quizCompletedListen",
+    "target": 1
+  },
+  {
+    "id": "quiz-debut-read",
+    "icon": "📖",
+    "name": "Quiz Debut (Read)",
+    "description": "Complete your first read quiz.",
+    "points": 30,
+    "difficulty": "easy",
+    "event": "quizCompletedRead",
     "target": 1
   },
   {
@@ -34,7 +44,7 @@
     "icon": "🎤",
     "name": "Say Hallo",
     "description": "Complete your first speak quiz.",
-    "points": 30,
+    "points": 50,
     "difficulty": "easy",
     "event": "speakQuizCompleted",
     "target": 1
@@ -110,13 +120,23 @@
     "target": 150
   },
   {
-    "id": "perfect-quiz",
+    "id": "perfect-quiz-listen",
     "icon": "💯",
-    "name": "Perfekt!",
-    "description": "Answer every quiz question on the first try.",
-    "points": 100,
+    "name": "Perfekt! (Listen)",
+    "description": "Answer every listen quiz question on the first try.",
+    "points": 50,
     "difficulty": "hard",
-    "event": "quizPerfect",
+    "event": "quizPerfectListen",
+    "target": 1
+  },
+  {
+    "id": "perfect-quiz-read",
+    "icon": "💯",
+    "name": "Perfekt! (Read)",
+    "description": "Answer every read quiz question on the first try.",
+    "points": 75,
+    "difficulty": "hard",
+    "event": "quizPerfectRead",
     "target": 1
   },
   {

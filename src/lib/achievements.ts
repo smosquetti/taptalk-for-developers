@@ -12,8 +12,10 @@
 export type AchievementEvent =
   | "boardPick"
   | "cardsHidden"
-  | "quizCompleted"
-  | "quizPerfect"
+  | "quizCompletedListen"
+  | "quizCompletedRead"
+  | "quizPerfectListen"
+  | "quizPerfectRead"
   | "speakQuizCompleted"
   | "speakQuizPerfect"
   | "speakFirstTry";
