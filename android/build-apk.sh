@@ -34,6 +34,7 @@ sed -i \
     -e 's#"/_next/#"_next/#g' \
     -e 's#"/quiz"#"quiz.html"#g' \
     -e 's#"/speak-quiz"#"speak-quiz.html"#g' \
+    -e 's#"/achievements"#"achievements.html"#g' \
     -e 's#"/favicon#"_favicon#g' \
     -e 's#href="/"#href="index.html"#g' \
     "$ASSETS_WEBAPP"/*.html
@@ -44,7 +45,9 @@ sed -i \
     -e 's#"/_next/#"_next/#g' \
     -e 's#"/quiz"#"quiz.html"#g' \
     -e 's#"/speak-quiz"#"speak-quiz.html"#g' \
+    -e 's#"/achievements"#"achievements.html"#g' \
     -e 's#"/vocabulary.json"#"vocabulary.json"#g' \
+    -e 's#"/achievements.json"#"achievements.json"#g' \
     -e 's#href:"/"#href:"index.html"#g' \
     "$ASSETS_WEBAPP"/_next/static/chunks/*.js
 

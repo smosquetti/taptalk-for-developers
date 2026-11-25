@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { CategoryId, WordCard } from "@/lib/vocabulary";
 import { CATEGORIES, loadVocabulary, shuffle } from "@/lib/vocabulary";
 import { loadCardState, saveCardState, type CardState } from "@/lib/cardState";
+import { recordEvent, type Achievement } from "@/lib/achievements";
 import { speak, speaking, stopSpeaking } from "@/lib/speech";
 import CategoryBar from "@/components/CategoryBar";
 import { useSound } from "@/components/SoundContext";
@@ -34,10 +35,13 @@ export default function QuizPage() {
   const [correctId, setCorrectId] = useState<string | null>(null);
   const [wrongId, setWrongId] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
+  const [newUnlocks, setNewUnlocks] = useState<Achievement[]>([]);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Board card state at quiz start: hidden cards still appear in the quiz,
   // and a wrong answer un-hides the involved words (target and picked dummy).
   const hiddenRef = useRef<CardState>({});
+  // Guard: the done effect must record the game exactly once.
+  const doneRef = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -45,6 +49,21 @@ export default function QuizPage() {
       stopSpeaking();
     };
   }, []);
+
+  // Record the finished game when the results show.
+  useEffect(() => {
+    if (phase !== "done" || doneRef.current) return;
+    doneRef.current = true;
+    void (async () => {
+      const unlocks: Achievement[] = [
+        ...(await recordEvent("quizCompleted")).newUnlocks,
+      ];
+      if (firstTryHits >= questions.length) {
+        unlocks.push(...(await recordEvent("quizPerfect")).newUnlocks);
+      }
+      setNewUnlocks(unlocks);
+    })();
+  }, [phase, firstTryHits, questions.length]);
 
   function buildQuestion(allCards: WordCard[], target: WordCard, m: Mode): Question {
     const keyOf = (c: WordCard) =>
@@ -76,6 +95,8 @@ export default function QuizPage() {
       setHadMiss(false);
       setCorrectId(null);
       setWrongId(null);
+      setNewUnlocks([]);
+      doneRef.current = false;
       setPhase("playing");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not load vocabulary.json");
@@ -252,6 +273,22 @@ export default function QuizPage() {
             >
               Play again
             </button>
+            {newUnlocks.length > 0 && (
+              <div className="mt-5 space-y-2">
+                {newUnlocks.map((a) => (
+                  <p
+                    key={a.id}
+                    className="flex flex-wrap items-center justify-center gap-x-2 rounded-lg border border-amber/60 bg-surface px-4 py-3 font-mono text-sm text-amber animate-pop"
+                  >
+                    <span aria-hidden>{a.icon}</span>
+                    <span>
+                      Achievement unlocked: <span className="font-bold">{a.name}</span>
+                    </span>
+                    <span className="font-bold">+{a.points} pts</span>
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

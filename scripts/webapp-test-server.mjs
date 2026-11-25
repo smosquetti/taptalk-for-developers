@@ -63,6 +63,7 @@ function needsBuild() {
   const inputs = [
     ...sourceFiles(path.join(root, "src")),
     path.join(root, "public", "vocabulary.json"),
+    path.join(root, "public", "achievements.json"),
     path.join(root, "next.config.ts"),
     path.join(root, "package.json"),
   ];
@@ -80,6 +81,7 @@ function rewriteHtml(text) {
     .replaceAll('"/_next/', '"_next/')
     .replaceAll('"/quiz"', '"quiz.html"')
     .replaceAll('"/speak-quiz"', '"speak-quiz.html"')
+    .replaceAll('"/achievements"', '"achievements.html"')
     .replaceAll('"/favicon', '"_favicon')
     .replaceAll('href="/"', 'href="index.html"');
 }
@@ -92,7 +94,9 @@ function rewriteJs(text) {
     .replaceAll('"/_next/', '"_next/')
     .replaceAll('"/quiz"', '"quiz.html"')
     .replaceAll('"/speak-quiz"', '"speak-quiz.html"')
+    .replaceAll('"/achievements"', '"achievements.html"')
     .replaceAll('"/vocabulary.json"', '"vocabulary.json"')
+    .replaceAll('"/achievements.json"', '"achievements.json"')
     .replaceAll('href:"/"', 'href:"index.html"');
 }
 

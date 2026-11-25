@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { CategoryId, WordCard } from "@/lib/vocabulary";
 import { CATEGORIES, loadVocabulary, shuffle } from "@/lib/vocabulary";
 import { loadCardState, saveCardState, type CardState } from "@/lib/cardState";
+import { recordEvent, type Achievement } from "@/lib/achievements";
 import { speak, speaking, stopSpeaking } from "@/lib/speech";
 import {
   isArticle,
@@ -71,6 +72,7 @@ export default function SpeakQuizPage() {
   // for the rest of the round — no re-hiding on retries.
   const [revealed, setRevealed] = useState(false);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [newUnlocks, setNewUnlocks] = useState<Achievement[]>([]);
   const [available] = useState(() => recognitionAvailable());
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -82,6 +84,8 @@ export default function SpeakQuizPage() {
   // Board card state at quiz start: hidden cards still appear in the quiz,
   // and a failed phrase un-hides its card.
   const hiddenRef = useRef<CardState>({});
+  // Guard: the done effect must record the game exactly once.
+  const doneRef = useRef(false);
   // The sink is registered once; it always calls the latest handler
   // (kept in the ref, updated by an effect below) so handleOutcome
   // reads the current state (round, attempts, …).
@@ -106,6 +110,21 @@ export default function SpeakQuizPage() {
     const q = questions[round];
     if (q && soundOn) speak(q.target.german);
   }, [phase, round, questions, soundOn]);
+
+  // Record the finished game when the results show.
+  useEffect(() => {
+    if (phase !== "done" || doneRef.current) return;
+    doneRef.current = true;
+    void (async () => {
+      const unlocks: Achievement[] = [
+        ...(await recordEvent("speakQuizCompleted")).newUnlocks,
+      ];
+      if (firstTryHits >= questions.length) {
+        unlocks.push(...(await recordEvent("speakQuizPerfect")).newUnlocks);
+      }
+      setNewUnlocks(unlocks);
+    })();
+  }, [phase, firstTryHits, questions.length]);
 
   const question: Question | undefined = questions[round];
 
@@ -144,6 +163,8 @@ export default function SpeakQuizPage() {
       setLocked(false);
       setRevealed(false);
       setFeedback(null);
+      setNewUnlocks([]);
+      doneRef.current = false;
       setPhase("playing");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not load vocabulary.json");
@@ -218,7 +239,10 @@ export default function SpeakQuizPage() {
       `[speak-quiz] matchPhrase vs "${q.target.german}" -> ok=${match.ok}`,
     );
     if (match.ok) {
-      if (attempts === 0) setFirstTryHits((h) => h + 1);
+      if (attempts === 0) {
+        setFirstTryHits((h) => h + 1);
+        void recordEvent("speakFirstTry");
+      }
       setLocked(true);
       setFeedback({ kind: "correct" });
       if (soundOn) speak(`Richtig! ${q.target.german}.`);
@@ -425,6 +449,22 @@ export default function SpeakQuizPage() {
             >
               Play again
             </button>
+            {newUnlocks.length > 0 && (
+              <div className="mt-5 space-y-2">
+                {newUnlocks.map((a) => (
+                  <p
+                    key={a.id}
+                    className="flex flex-wrap items-center justify-center gap-x-2 rounded-lg border border-amber/60 bg-surface px-4 py-3 font-mono text-sm text-amber animate-pop"
+                  >
+                    <span aria-hidden>{a.icon}</span>
+                    <span>
+                      Achievement unlocked: <span className="font-bold">{a.name}</span>
+                    </span>
+                    <span className="font-bold">+{a.points} pts</span>
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

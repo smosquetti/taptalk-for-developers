@@ -1,8 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import type { WordCard } from "@/lib/vocabulary";
 import { loadVocabulary, shuffle } from "@/lib/vocabulary";
+import {
+  loadAchievements,
+  loadProgress,
+  recordEvent,
+  scoreOf,
+  type Achievement,
+  type Progress,
+} from "@/lib/achievements";
 import {
   hideBadge,
   isHidden,
@@ -27,6 +36,8 @@ export default function BoardPage() {
   const [selected, setSelected] = useState<WordCard | null>(null);
   const [showHidden, setShowHidden] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [achList, setAchList] = useState<Achievement[]>([]);
+  const [achv, setAchv] = useState<Progress | null>(null);
 
   // A fresh random board on every page load (i.e. every app launch).
   useEffect(() => {
@@ -46,6 +57,17 @@ export default function BoardPage() {
           setError(
             e instanceof Error ? e.message : "Could not load vocabulary.json",
           );
+      });
+    // Independent of the vocabulary: the score section still shows when
+    // only achievements.json is loaded.
+    loadAchievements()
+      .then((list) => {
+        if (!active) return;
+        setAchList(list);
+        setAchv(loadProgress());
+      })
+      .catch(() => {
+        /* score section stays hidden when achievements.json is unavailable */
       });
     return () => {
       active = false;
@@ -73,6 +95,7 @@ export default function BoardPage() {
   function pick(card: WordCard) {
     setSelected(card);
     if (soundOn) speak(card.german);
+    void recordEvent("boardPick").then((r) => setAchv(r.progress));
   }
 
   function close() {
@@ -90,6 +113,7 @@ export default function BoardPage() {
     setBoard((b) => refillBoard(b, card.id, vocabulary, next, BOARD_SIZE));
     stopSpeaking();
     setSelected(null);
+    void recordEvent("cardsHidden").then((r) => setAchv(r.progress));
   }
 
   function restoreCard(id: string) {
@@ -112,11 +136,15 @@ export default function BoardPage() {
             className="inline-block h-6 w-3 bg-neon align-[-0.1em] animate-blink"
           />
         </h1>
-        <p className="mt-2 font-mono text-sm text-fog">
-          20 random cards out of 600 — a fresh board every launch. Tap a card
-          to see and hear the term; hide the ones you already know.
-        </p>
       </div>
+
+      {achList.length > 0 && achv && (
+        <ScoreSection
+          score={scoreOf(achList, achv.unlocked)}
+          done={Object.keys(achv.unlocked).length}
+          total={achList.length}
+        />
+      )}
 
       {error && (
         <div className="rounded-2xl border border-danger/50 bg-panel p-8 text-center">
@@ -206,6 +234,63 @@ function HiddenRow({
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function ScoreSection({
+  score,
+  done,
+  total,
+}: {
+  score: number;
+  done: number;
+  total: number;
+}) {
+  const pct = total > 0 ? Math.max(3, (done / total) * 100) : 0;
+  return (
+    <div className="flex items-center justify-between gap-4 rounded-2xl border border-edge bg-panel p-4 shadow-[0_0_40px_rgba(34,211,238,0.08)]">
+      <div className="flex items-center gap-3">
+        <span
+          aria-hidden
+          className="flex h-11 w-11 items-center justify-center rounded-lg border border-amber/50 bg-surface text-2xl"
+        >
+          🏆
+        </span>
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-fog">
+            Score
+          </p>
+          <p className="font-mono text-2xl font-bold leading-tight text-ice">
+            {score} <span className="text-sm font-normal text-fog">pts</span>
+          </p>
+          <p className="mt-0.5 font-mono text-xs text-fog">
+            {done}/{total} achievements unlocked
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-col items-end gap-2">
+        <div
+          role="progressbar"
+          aria-valuenow={done}
+          aria-valuemin={0}
+          aria-valuemax={total}
+          aria-label="Achievements unlocked"
+          className="h-1.5 w-24 overflow-hidden rounded-full border border-edge bg-void sm:w-32"
+        >
+          <div
+            className="h-full bg-gradient-to-r from-amber to-mint"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+        <Link
+          href="/achievements"
+          aria-label="View all achievements"
+          className="rounded-full border border-neon/60 bg-surface px-4 py-2 font-mono text-sm text-neon transition hover:bg-void/50 active:scale-[0.98]"
+        >
+          Achievements
+        </Link>
+      </div>
     </div>
   );
 }

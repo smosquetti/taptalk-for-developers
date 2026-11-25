@@ -1,0 +1,162 @@
+[
+  {
+    "id": "first-pick",
+    "icon": "👆",
+    "name": "First Steps",
+    "description": "Tap a term on the board to hear it.",
+    "points": 10,
+    "difficulty": "easy",
+    "event": "boardPick",
+    "target": 1
+  },
+  {
+    "id": "tidy-desk",
+    "icon": "🗄️",
+    "name": "Tidy Desk",
+    "description": "Hide the 10 cards you already know.",
+    "points": 15,
+    "difficulty": "easy",
+    "event": "cardsHidden",
+    "target": 10
+  },
+  {
+    "id": "quiz-debut",
+    "icon": "🎧",
+    "name": "Quiz Debut",
+    "description": "Complete your first quiz.",
+    "points": 20,
+    "difficulty": "easy",
+    "event": "quizCompleted",
+    "target": 1
+  },
+  {
+    "id": "speak-hello",
+    "icon": "🎤",
+    "name": "Say Hallo",
+    "description": "Complete your first speak quiz.",
+    "points": 30,
+    "difficulty": "easy",
+    "event": "speakQuizCompleted",
+    "target": 1
+  },
+  {
+    "id": "curious-mind",
+    "icon": "🔍",
+    "name": "Curious Mind",
+    "description": "Review 25 terms on the board.",
+    "points": 40,
+    "difficulty": "medium",
+    "event": "boardPick",
+    "target": 25
+  },
+  {
+    "id": "clean-desk",
+    "icon": "🧹",
+    "name": "Clean Desk",
+    "description": "Hide 50 cards you already know.",
+    "points": 40,
+    "difficulty": "medium",
+    "event": "cardsHidden",
+    "target": 50
+  },
+  {
+    "id": "quiz-regular",
+    "icon": "📻",
+    "name": "Regular",
+    "description": "Complete 7 quizzes.",
+    "points": 50,
+    "difficulty": "medium",
+    "event": "quizCompleted",
+    "target": 7
+  },
+  {
+    "id": "speak-regular",
+    "icon": "💬",
+    "name": "Small Talk",
+    "description": "Complete 7 speak quizzes.",
+    "points": 60,
+    "difficulty": "medium",
+    "event": "speakQuizCompleted",
+    "target": 7
+  },
+  {
+    "id": "first-try-club",
+    "icon": "🎯",
+    "name": "First Try Club",
+    "description": "Say 25 phrases correctly on the first try.",
+    "points": 80,
+    "difficulty": "medium",
+    "event": "speakFirstTry",
+    "target": 25
+  },
+  {
+    "id": "board-veteran",
+    "icon": "🏅",
+    "name": "Vocabulary Veteran",
+    "description": "Review 100 terms on the board.",
+    "points": 100,
+    "difficulty": "hard",
+    "event": "boardPick",
+    "target": 100
+  },
+  {
+    "id": "desk-organizer",
+    "icon": "📚",
+    "name": "Desk Organizer",
+    "description": "Hide 150 cards you already know.",
+    "points": 100,
+    "difficulty": "hard",
+    "event": "cardsHidden",
+    "target": 150
+  },
+  {
+    "id": "perfect-quiz",
+    "icon": "💯",
+    "name": "Perfekt!",
+    "description": "Answer every quiz question on the first try.",
+    "points": 100,
+    "difficulty": "hard",
+    "event": "quizPerfect",
+    "target": 1
+  },
+  {
+    "id": "quiz-legend",
+    "icon": "🌟",
+    "name": "Quiz Legend",
+    "description": "Complete 30 quizzes.",
+    "points": 120,
+    "difficulty": "hard",
+    "event": "quizCompleted",
+    "target": 30
+  },
+  {
+    "id": "speak-legend",
+    "icon": "🎙️",
+    "name": "Conversation Ready",
+    "description": "Complete 20 speak quizzes.",
+    "points": 150,
+    "difficulty": "hard",
+    "event": "speakQuizCompleted",
+    "target": 20
+  },
+  {
+    "id": "board-master",
+    "icon": "🏆",
+    "name": "Word Hoarder",
+    "description": "Review 300 terms on the board.",
+    "points": 200,
+    "difficulty": "hard",
+    "event": "boardPick",
+    "target": 300
+  },
+  {
+    "id": "perfect-speak",
+    "icon": "🧠",
+    "name": "Zungengabe",
+    "description": "Say every phrase on the first try in one speak quiz.",
+    "points": 200,
+    "difficulty": "hard",
+    "event": "speakQuizPerfect",
+    "target": 1
+  }
+]

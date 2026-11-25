@@ -23,6 +23,15 @@ export interface TaptalkOpts {
   seedCardState?: Record<string, { until: number; ms: number }>;
   /** Seed localStorage `taptalk-sound` ("on" | "off") for a fresh context. */
   seedSound?: "on" | "off";
+  /**
+   * Seed localStorage `taptalk-achievements` for a fresh context:
+   * per-event counters plus already-unlocked achievement ids (with
+   * timestamps). Only applied when the key is absent.
+   */
+  seedAchievements?: {
+    counters: Record<string, number>;
+    unlocked: Record<string, number>;
+  };
 }
 
 type TaptalkState = {
@@ -100,6 +109,9 @@ export function installTaptalk(page: Page, opts: TaptalkOpts = {}): TaptalkHandl
     }
     if (init.seedSound) {
       seed("taptalk-sound", init.seedSound);
+    }
+    if (init.seedAchievements) {
+      seed("taptalk-achievements", JSON.stringify(init.seedAchievements));
     }
 
     window.SpeechSynthesisUtterance = class {
